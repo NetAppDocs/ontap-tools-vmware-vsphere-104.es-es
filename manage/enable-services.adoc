@@ -1,0 +1,31 @@
+---
+permalink: manage/enable-services.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Puede cambiar la contraseña de administrador mediante el Administrador de herramientas de ONTAP para habilitar servicios como VASA Provider, importación de configuración de vVols y recuperación ante desastres (SRA) mediante el Administrador de herramientas de ONTAP .' 
+---
+= Habilitar ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede cambiar la contraseña de administrador mediante el Administrador de herramientas de ONTAP para habilitar servicios como VASA Provider, importación de configuración de vVols y recuperación ante desastres (SRA) mediante el Administrador de herramientas de ONTAP .
+
+.Pasos
+. Inicie el Administrador de herramientas de ONTAP desde un navegador web: `\https://<ONTAPtoolsIP>:8443/virtualization/ui/`
+. Inicie sesión con las credenciales de administrador de las ONTAP tools for VMware vSphere que proporcionó durante la implementación.
+. Seleccione *Editar configuración del dispositivo* en la sección de descripción general.
+. En la sección *Servicios*, puede habilitar servicios opcionales como VASA Provider, importación de configuración de vVols y recuperación ante desastres (SRA) según sus necesidades.
++
+Al habilitar los servicios por primera vez, debe crear las credenciales de proveedor VASA y SRA.  Se utilizan para registrar o habilitar los servicios SRA y del proveedor VASA en vCenter Server. El nombre de usuario solo puede contener letras, números y guiones bajos.  La longitud de la contraseña debe estar entre 8 y 256 caracteres.
+
++
+
+NOTE: Antes de deshabilitar cualquier servicio opcional, asegúrese de que los servidores vCenter administrados por las herramientas de ONTAP no los utilicen.
+
++
+La opción *Permitir importación de configuración de vVols * se muestra solo cuando el servicio del proveedor VASA está habilitado. Esta opción habilita la migración de datos vVols de las herramientas ONTAP 9.xx a las herramientas ONTAP 10.4.
+
+

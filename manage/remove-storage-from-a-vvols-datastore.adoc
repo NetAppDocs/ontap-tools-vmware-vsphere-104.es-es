@@ -1,0 +1,29 @@
+---
+permalink: manage/remove-storage-from-a-vvols-datastore.html 
+sidebar: sidebar 
+keywords: Remove vVol datastore 
+summary: La acción Eliminar almacén de datos elimina el almacén de datos cuando no hay vVols en el almacén de datos seleccionado. 
+---
+= Reducir el almacén de datos de vVols
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La acción Eliminar almacén de datos elimina el almacén de datos cuando no hay vVols en el almacén de datos seleccionado.
+
+
+NOTE: La operación de reducción del almacén de datos vVols no es compatible con el almacén de datos vVols basado en el sistema ASA r2.
+
+.Pasos
+. Desde la página de inicio de vSphere Client, seleccione *Hosts y clústeres*.
+. En el panel de navegación, seleccione el centro de datos que contiene el almacén de datos.
+. Haga clic con el botón derecho en el almacén de datos vVol y seleccione * Herramientas de NetApp ONTAP * > * Quitar almacenamiento del almacén de datos *.
+. Seleccione los volúmenes que no tengan vVols y seleccione *Eliminar*.
++
+
+NOTE: La opción para seleccionar el volumen en el que reside vVols está deshabilitada.
+
+. En la ventana emergente *Quitar almacenamiento*, seleccione la casilla de verificación *Eliminar volúmenes del clúster ONTAP * para eliminar los volúmenes del almacén de datos y del almacenamiento ONTAP y seleccione *Eliminar*.
+

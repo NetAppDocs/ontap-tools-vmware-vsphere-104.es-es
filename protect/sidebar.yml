@@ -1,0 +1,36 @@
+---
+section: protect
+title: Proteger almacenes de datos y máquinas virtuales
+entries:
+- title: Proteger mediante la protección del clúster de host
+  url: "/configure/protect-cluster.html"
+- title: Protéjase utilizando la protección SRA
+  entries:
+  - title: Configurar SRA para proteger los almacenes de datos
+    url: "/protect/enable-storage-replication-adapter.html"
+  - title: Configurar SRA para entornos SAN y NAS
+    url: "/protect/configure-storage-replication-adapter-for-san-environment.html"
+  - title: Configurar SRA para entornos de gran escalabilidad
+    url: "/protect/configure-storage-replication-adapter-for-highly-scaled-environment.html"
+  - title: Configurar SRA en el dispositivo VMware Live Site Recovery
+    url: "/protect/configure-on-srm-appliance.html"
+  - title: Actualizar las credenciales de SRA
+    url: "/protect/update-credentials.html"
+  - title: Configurar sitios protegidos y de recuperación
+    url: "/protect/configure-protection-groups.html"
+  - title: Configurar recursos de sitios protegidos y de recuperación
+    entries:
+    - title: Configurar asignaciones de red
+      url: "/protect/map-network.html"
+    - title: Configurar asignaciones de carpetas
+      url: "/protect/map-folder.html"
+    - title: Configurar asignaciones de recursos
+      url: "/protect/map-resource.html"
+    - title: Configurar almacenes de datos de marcador de posición
+      url: "/protect/configure-placeholder-datastores.html"
+    - title: Configurar SRA mediante el administrador de matrices
+      url: "/protect/configure-array-manager.html"
+  - title: Verificar los sistemas de almacenamiento replicados
+    url: "/protect/verify-the-replicated-storage-environment.html"
+  - title: Protección en abanico
+    url: "/protect/fan-out-protection.html"

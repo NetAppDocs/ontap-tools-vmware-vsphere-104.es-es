@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: automation/first-call.html 
+keywords: ontap tools for vmware vsphere rest api reference, first rest api call, acquire access token 
+summary: Puede emitir una llamada API usando curl para comenzar a utilizar las ONTAP tools for VMware vSphere 10. 
+---
+= Sus primeras ONTAP tools for VMware vSphere 10
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede emitir una llamada API usando curl para comenzar a utilizar las ONTAP tools for VMware vSphere 10.
+
+
+
+== Antes de empezar
+
+Debes revisar la información requerida y los parámetros necesarios en los ejemplos de curl.
+
+.Información requerida
+Necesitarás lo siguiente:
+
+* ONTAP tools for VMware vSphere 10 Dirección IP o FQDN, así como el puerto
+* Credenciales para el administrador de herramientas de ONTAP (nombre de usuario y contraseña)
+
+
+.Parámetros y variables
+Los ejemplos de curl que se presentan a continuación incluyen variables de estilo Bash.  Puede configurar estas variables en el entorno Bash o actualizarlas manualmente antes de emitir los comandos.  Si configura las variables, el shell sustituirá los valores en cada comando antes de ejecutarlo.  Las variables se describen en la siguiente tabla.
+
+[cols="25,75"]
+|===
+| Variable | Descripción 
+
+
+| $FQDN_IP_PORT | El nombre de dominio completo o la dirección IP del Administrador de herramientas de ONTAP junto con el número de puerto. 
+
+
+| $MIUSUARIO | Nombre de usuario para la cuenta de administrador de herramientas de ONTAP . 
+
+
+| $MICONTRASEÑA | Contraseña asociada al nombre de usuario del administrador de herramientas de ONTAP . 
+
+
+| $TOKEN DE ACCESO | El token de acceso emitido por el administrador de herramientas de ONTAP . 
+|===
+Los siguientes comandos y resultados en la CLI de Linux ilustran cómo se puede configurar y mostrar una variable:
+
+[listing]
+----
+FQDN_IP_PORT=172.14.31.224:8443
+echo $FQDN_IP
+172.14.31.224:8443
+----
+
+
+== Paso 1: Adquirir un token de acceso
+
+Necesita adquirir un token de acceso para utilizar la API REST.  A continuación se presenta un ejemplo de cómo solicitar un token de acceso.  Debes sustituir los valores apropiados para tu entorno.
+
+[source, curl]
+----
+curl --request POST \
+--location "https://$FQDN_IP_PORT/virtualization/api/v1/auth/login” \
+--header "Content-Type: application/json" \
+--header "Accept: */*" \
+-d "{"username": "$MYUSER", "password": "$MYPASSWORD"}"
+----
+Copie y guarde el token de acceso proporcionado en la respuesta.
+
+
+
+== Paso 2: Emitir la llamada a la API REST
+
+Una vez que tenga un token de acceso, puede usar curl para emitir una llamada a la API REST.  Incluya el token de acceso adquirido en el primer paso.
+
+.Ejemplo de rizo
+[source, curl]
+----
+curl --request GET \
+--location "https://$FQDN_IP_PORT/virtualization/api/v1/vcenters" \
+--header "Accept: */*" \
+--header "x-auth: $ACCESS_TOKEN"
+----
+La respuesta JSON incluye una lista de las instancias de VMware vCenter configuradas en el Administrador de herramientas de ONTAP .

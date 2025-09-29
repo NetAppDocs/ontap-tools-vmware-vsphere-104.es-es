@@ -1,0 +1,25 @@
+---
+permalink: manage/resize-datastores.html 
+sidebar: sidebar 
+keywords:  
+summary: Cambiar el tamaño de un almacén de datos le permite aumentar el almacenamiento para los archivos de su máquina virtual.  Puede cambiar el tamaño de un almacén de datos a medida que cambian sus requisitos de infraestructura. 
+---
+= Cambiar el tamaño del almacén de datos NFS y VMFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cambiar el tamaño de un almacén de datos le permite aumentar el almacenamiento para los archivos de su máquina virtual.  Puede cambiar el tamaño de un almacén de datos a medida que cambian sus requisitos de infraestructura.
+
+*Acerca de esta tarea*
+
+Solo puede aumentar el tamaño de los almacenes de datos NFS y VMFS.  Un FlexVol volume que forma parte de un almacén de datos NFS y VMFS no puede reducirse por debajo del tamaño existente, pero puede crecer hasta un 120 % como máximo.
+
+.Pasos
+. Desde la página de inicio de vSphere Client, seleccione *Hosts y clústeres*.
+. En el panel de navegación, seleccione el centro de datos que contiene el almacén de datos.
+. Haga clic con el botón derecho en el almacén de datos NFS o VMFS y seleccione * Herramientas de NetApp ONTAP * > * Cambiar tamaño del almacén de datos *.
+. En el cuadro de diálogo Cambiar tamaño, especifique un nuevo tamaño para el almacén de datos y seleccione *Aceptar*.
+

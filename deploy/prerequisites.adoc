@@ -1,0 +1,232 @@
+---
+permalink: deploy/prerequisites.html 
+sidebar: sidebar 
+keywords: ONTAP tools,Storage Replication Adapter 
+summary: Antes de implementar las ONTAP tools for VMware vSphere, debe familiarizarse con los requisitos de espacio para el paquete de implementación y algunos requisitos básicos del sistema host. 
+---
+= Requisitos y límites de configuración de las ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Antes de implementar las ONTAP tools for VMware vSphere, debe familiarizarse con los requisitos de espacio para el paquete de implementación y algunos requisitos básicos del sistema host.
+
+Puede utilizar ONTAP tools for VMware vSphere con VMware vCenter Server Virtual Appliance (vCSA).  Debe implementar ONTAP tools for VMware vSphere en un cliente vSphere compatible que incluya el sistema ESXi.
+
+
+
+== Requisitos del sistema
+
+* *Requisitos de espacio del paquete de instalación por nodo*
++
+** 15 GB para instalaciones con aprovisionamiento ligero
+** 348 GB para instalaciones con aprovisionamiento grueso
+
+
+* *Requisitos de tamaño del sistema host* La memoria recomendada según el tamaño de la implementación se muestra en la siguiente tabla.  Para implementar alta disponibilidad (HA), necesitará tres veces el tamaño del dispositivo especificado en la tabla.
+
+
+|===
+
+
+| *Tipo de despliegue* | *CPU por nodo* | *Memoria (GB) por nodo* | *Espacio en disco (GB) aprovisionado en grueso por nodo* 
+
+
+| Pequeño | 9 | 18 | 350 
+
+
+| Medio | 13 | 26 | 350 
+
+
+| NOTA grande: La implementación grande es solo para configuración de alta disponibilidad. | 17 | 34 | 350 
+|===
+
+NOTE: Cuando la copia de seguridad está habilitada, cada clúster de herramientas ONTAP necesita otros 50 GB de espacio en el almacén de datos donde se implementan las máquinas virtuales.  Por lo tanto, la modalidad sin alta disponibilidad requiere 400 GB, y la modalidad con alta disponibilidad requiere 1100 GB de espacio en total.
+
+
+
+== Requisitos mínimos de almacenamiento y aplicación
+
+|===
+| Almacenamiento, host y aplicaciones | Requisitos de versión 
+
+
+| ONTAP | 9.14.1, 9.15.1, 9.16.0, 9.16.1 y 9.16.1P3 FAS, ASA Serie A, ASA Serie C, AFF Serie A, AFF Serie C y ASA r2. 
+
+
+| Hosts ESXi compatibles con herramientas ONTAP | 7.0.3 en adelante 
+
+
+| Herramientas ONTAP compatibles con vCenter Server | 7.0U3 en adelante 
+
+
+| Proveedor de VASA | 3,0 
+
+
+| Solicitud OVA | 10,4 
+
+
+| Host ESXi para implementar la máquina virtual de herramientas ONTAP | 7.0U3 y 8.0U3 
+
+
+| vCenter Server para implementar la máquina virtual de herramientas ONTAP | 7.0 y 8.0 
+|===
+
+NOTE: A partir de las ONTAP tools for VMware vSphere 10.4, el hardware de la máquina virtual cambia de la versión 10 a la 17.
+
+La herramienta Matriz de interoperabilidad (IMT) contiene la información más reciente sobre las versiones compatibles de ONTAP, vCenter Server, hosts ESXi y aplicaciones complementarias.
+
+https://imt.netapp.com/matrix/imt.jsp?components=105475;&solution=1777&isHWU&src=IMT["Herramienta de matriz de interoperabilidad"^]
+
+
+
+== Requisitos del puerto
+
+La siguiente tabla describe los puertos de red que utiliza NetApp y sus funciones. Asegúrese de que estos puertos estén abiertos y accesibles para facilitar el correcto funcionamiento y la comunicación dentro del sistema. Asegúrese de que las configuraciones de red necesarias permitan el tráfico en estos puertos para que los servicios asociados funcionen correctamente. Según sus políticas de seguridad, podría necesitar configurar firewalls u otros dispositivos de seguridad para permitir este tráfico dentro de su red.
+
+|===
+
+
+| *Puerto* | *Protocolo* | *Descripción* 
+
+
+| 8143 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+
+
+| 8043 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+
+
+| 9060 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+
+
+| 22 | TCP | Ansible utiliza este puerto SSH para la comunicación durante el aprovisionamiento del clúster.  Este puerto es necesario para funcionalidades como cambiar la contraseña del usuario de mantenimiento, los mensajes de estado y para actualizar valores en los tres nodos en caso de configuración de HA. 
+
+
+| 443 | TCP | Este es el puerto de paso para la comunicación entrante para el servicio del proveedor VASA.  El certificado autofirmado del proveedor VASA y el certificado CA personalizado están alojados en este puerto. 
+
+
+| 8443 | TCP | Este puerto aloja la documentación de la API a través de Swagger y la aplicación de interfaz de usuario Manager. 
+
+
+| 2379 | TCP | Este es el puerto predeterminado para solicitudes de clientes como obtener, colocar, eliminar o buscar claves en el almacén de valores de clave etcd. 
+
+
+| 2380 | TCP | Este es el puerto predeterminado para la comunicación de servidor a servidor para el clúster etcd utilizado para el algoritmo de consenso raft del que se basa etcd para la replicación y la consistencia de los datos. 
+
+
+| 7472 | TCP/UDP | Este es el puerto del servicio de métricas de Prometheus. 
+
+
+| 7946 | TCP/UDP | Este puerto se utiliza para el descubrimiento de la red de contenedores de Docker. 
+
+
+| 9083 | TCP | Este puerto es un puerto de servicio utilizado internamente para el servicio del proveedor VASA. 
+
+
+| 1162 | UDP | Este es el puerto de paquetes de trampa SNMP. 
+
+
+| 6443 | TCP | Fuente: Nodos de agentes RKE2.  Destino: nodos del servidor REK2.  Descripción: API de Kubernetes 
+
+
+| 9345 | TCP | Fuente: Nodos de agentes RKE2.  Destino: nodos del servidor REK2.  Descripción: API de supervisor REK2 
+
+
+| 8472 | TCP+UDP | Todos los nodos deben poder comunicarse con otros nodos a través del puerto UDP 8472 cuando se utiliza VXLAN de franela.  Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Canal CNI con VXLAN 
+
+
+| 10250 | TCP | Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Métricas de Kubelet 
+
+
+| 30000-32767 | TCP | Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Rango de puertos NodePort 
+
+
+| 123 | TCP | Ntpd utiliza este puerto para realizar la validación del servidor NTP. 
+
+
+| 137-139 | TCP/UDP | Paquetes compartidos SMB/Windows. 
+
+
+| 6789 | TCP | Monitor cefalométrico (MON) 
+
+
+| 3300 | TCP | Monitor cefalométrico (MON) 
+
+
+| 6800-7300 | TCP | Administradores Ceph, OSD y sistemas de archivos (MDS). 
+
+
+| 80 | TCP | Puerta de enlace Ceph RADOS (RGW) 
+
+
+| 9080 | TCP | Conexiones VP HTTP/HTTPS (solo desde 127.0.0.0/8 para IPv4 o ::1/128 para IPv6). 
+|===
+
+
+== Límites de configuración para implementar ONTAP tools for VMware vSphere
+
+Puede utilizar la siguiente tabla como guía para configurar las ONTAP tools for VMware vSphere.
+
+|===
+
+
+| *Despliegue* | *Tipo* | *Número de vVols* | *Número de hosts* 
+
+
+| No HA | Pequeño (S) | ~12 mil | 32 
+
+
+| No HA | Mediano (M) | ~24K | 64 
+
+
+| Alta disponibilidad | Pequeño (S) | ~24K | 64 
+
+
+| Alta disponibilidad | Mediano (M) | ~50k | 128 
+
+
+| Alta disponibilidad | Grande (L) | ~100k | 256 [NOTA] La cantidad de hosts en la tabla muestra la cantidad total de hosts de varios vCenters. 
+|===
+
+
+== ONTAP tools for VMware vSphere : Adaptador de replicación de almacenamiento (SRA)
+
+La siguiente tabla muestra los números admitidos por instancia de VMware Live Site Recovery mediante ONTAP tools for VMware vSphere.
+
+|===
+| *Tamaño de implementación de vCenter* | *Pequeño* | *Medio* 
+
+
+| Número total de máquinas virtuales configuradas para protección mediante replicación basada en matrices | 2000 | 5000 
+
+
+| Número total de grupos de protección de replicación basados en matrices | 250 | 250 
+
+
+| Número total de grupos de protección por plan de recuperación | 50 | 50 
+
+
+| Número de almacenes de datos replicados | 255 | 255 
+
+
+| Número de máquinas virtuales | 4000 | 7000 
+|===
+La siguiente tabla muestra la cantidad de VMware Live Site Recovery y las ONTAP tools for VMware vSphere .
+
+|===
+
+
+| *Número de instancias de VMware Live Site Recovery* | * Tamaño de implementación de las herramientas ONTAP * 
+
+
+| Hasta 4 | Pequeño 
+
+
+| 4 a 8 | Medio 
+
+
+| Más de 8 | Grande 
+|===
+Para más información, consulte  https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery/live-site-recovery/9-0/overview/site-recovery-manager-system-requirements/operational-limits-of-site-recovery-manager.html["Límites operativos de VMware Live Site Recovery"] .

@@ -1,0 +1,24 @@
+---
+permalink: configure/configure-network-access.html 
+sidebar: sidebar 
+keywords: network access configuration, export policy, mount operation, ESXi hosts 
+summary: Si no ha configurado el acceso a la red, todas las direcciones IP descubiertas del host ESXi se agregan a la política de exportación de forma predeterminada. 
+---
+= Configurar el acceso a la red
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si no ha configurado el acceso a la red, todas las direcciones IP descubiertas del host ESXi se agregan a la política de exportación de forma predeterminada.  Puede configurarlo para agregar algunas direcciones IP específicas a la política de exportación y excluir el resto.  Sin embargo, cuando se realiza una operación de montaje en los hosts ESXi excluidos, la operación falla.
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Seleccione *Herramientas NetApp ONTAP * en la página de accesos directos en la sección de complementos.
+. En el panel izquierdo de las herramientas de ONTAP , navegue a *Configuración* > *Administrar acceso a la red* > *Editar*.
++
+Para agregar varias direcciones IP, separe la lista con comas, rango, enrutamiento entre dominios sin clases (CIDR) o una combinación de los tres.
+
+. Seleccione *Guardar*.
+

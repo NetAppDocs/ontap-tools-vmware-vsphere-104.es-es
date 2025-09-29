@@ -1,0 +1,42 @@
+---
+permalink: configure/discover-storage-systems-and-hosts.html 
+sidebar: sidebar 
+keywords:  
+summary: Cuando ejecuta por primera vez las ONTAP tools for VMware vSphere en un cliente vSphere, las ONTAP tools for VMware vSphere detectan los hosts ESXi, sus LUN y exportaciones NFS, y los sistemas de almacenamiento NetApp que poseen esos LUN y exportaciones. 
+---
+= Descubra los sistemas de almacenamiento y hosts
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando ejecuta por primera vez las ONTAP tools for VMware vSphere en un cliente vSphere, las herramientas ONTAP detectan los hosts ESXi, sus LUN y exportaciones NFS, y los sistemas de almacenamiento NetApp que poseen esos LUN y exportaciones.
+
+.Antes de empezar
+* Todos los hosts ESXi deben estar encendidos y conectados.
+* Todas las máquinas virtuales de almacenamiento (SVM) que se van a descubrir deben estar en ejecución, y cada nodo del clúster debe tener al menos un LIF de datos configurado para el protocolo de almacenamiento en uso (NFS o iSCSI).
+
+
+*Acerca de esta tarea*
+
+Puede descubrir nuevos sistemas de almacenamiento o actualizar información sobre sistemas de almacenamiento existentes para obtener la información más reciente sobre capacidad y configuración en cualquier momento.  También puede modificar las credenciales que las ONTAP tools for VMware vSphere utilizan para iniciar sesión en los sistemas de almacenamiento.
+
+Al descubrir los sistemas de almacenamiento, las ONTAP tools for VMware vSphere recopilan información de los hosts ESXi administrados por la instancia de vCenter Server.
+
+.Pasos
+. Desde la página de inicio de vSphere Client, seleccione *Hosts y clústeres*.
+. Haga clic con el botón derecho en el centro de datos requerido y seleccione * Herramientas de NetApp ONTAP * > * Actualizar datos del host *.
++
+En el cuadro de diálogo *Confirmar*, confirme su elección.
+
+. Seleccione los controladores de almacenamiento detectados que tengan el estado `Authentication Failure` y seleccione *Acciones* > *Modificar*.
+. Complete la información requerida en el cuadro de diálogo *Modificar sistema de almacenamiento*.
+. Repita los pasos 4 y 5 para todos los controladores de almacenamiento con `Authentication Failure` estado.
+
+
+Una vez completado el proceso de descubrimiento, realice las siguientes acciones:
+
+* Utilice las ONTAP tools for VMware vSphere para configurar los ajustes del host ESXi para los hosts que muestran el ícono de alerta en la columna de configuración del adaptador, la columna de configuración de MPIO o la columna de configuración de NFS.
+* Proporcione las credenciales del sistema de almacenamiento.
+

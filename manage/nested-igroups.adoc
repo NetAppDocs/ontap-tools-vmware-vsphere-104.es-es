@@ -1,0 +1,68 @@
+---
+permalink: manage/nested-igroups.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Comprender los igroups administrados por las herramientas ONTAP
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al administrar máquinas virtuales de herramientas ONTAP y sistemas de almacenamiento ONTAP , es fundamental comprender el comportamiento de igroup, especialmente cuando se migran almacenes de datos desde entornos que no son de herramientas ONTAP a la administración de herramientas ONTAP . Esta sección describe cómo se actualizan los igroups durante esta transición.
+
+Las ONTAP tools for VMware vSphere 10.4 simplifican la administración de almacenes de datos al automatizar la creación y el mantenimiento de objetos ONTAP y vCenter dentro de entornos de centros de datos de VMware.
+
+Las ONTAP tools for VMware vSphere 10.4 interpretan los igroups en dos contextos diferentes:
+
+.igroups administrados por herramientas que no son de ONTAP
+Como administrador de almacenamiento, puede crear igroups en el sistema ONTAP como estructuras planas o anidadas. La ilustración muestra un igroup plano creado en el sistema ONTAP .
+
+image:../media/non-otv-managed.png["igroup administrado por herramientas que no son de ONTAP"]
+
+.igroups administrados por herramientas ONTAP
+Cuando crea almacenes de datos, las ONTAP tools for VMware vSphere 10.4 crean automáticamente igroups utilizando una estructura anidada para facilitar la asignación de LUN.
+
+Por ejemplo, cuando se crea y monta el almacén de datos1 en los hosts 1, 2 y 3, y se crea y monta un nuevo almacén de datos (almacén de datos2) en los hosts 3, 4 y 5, las herramientas de ONTAP reutilizan el igroup a nivel de host para una gestión eficiente.
+
+image:../media/otv-managed.png["igroup administrado por herramientas ONTAP"]
+
+image:../media/otv-managed2.png["igroup administrado por herramientas ONTAP con igroup secundario reutilizado"]
+
+A continuación se muestran algunos casos de ONTAP tools for VMware vSphere .
+
+*Cuando creas un almacén de datos con la configuración de igroup predeterminada*
+
+Cuando crea un almacén de datos y deja el campo igroup en blanco (configuración predeterminada), las herramientas de ONTAP generan automáticamente una estructura igroup anidada para ese almacén de datos. El igroup padre en el nivel del almacén de datos se nombra utilizando el patrón: otv_<vcguid>_<host_parent_datacenterMoref>_<datastore_name>. Cada igroup secundario a nivel de host sigue el patrón: otv_<hostMoref>_<vcguid>. Puede ver la asociación entre los igroups padre (nivel de almacén de datos) y los igroups hijo (nivel de host) en la sección *Grupo iniciador padre* de la interfaz de almacenamiento de ONTAP .
+
+Con el enfoque de igroup anidado, los LUN se asignan solo a los igroups secundarios. Luego, el inventario de vCenter Server muestra el nuevo almacén de datos.
+
+*Cuando creas un almacén de datos con un nombre de igroup personalizado*
+
+Durante la creación del almacén de datos en las herramientas de ONTAP , puede ingresar un nombre de igroup personalizado en lugar de seleccionarlo en el menú desplegable. Luego, las herramientas de ONTAP crean un igroup principal en el nivel del almacén de datos usando el nombre especificado. Si se utiliza el mismo host para varios almacenes de datos, se reutiliza el igroup de nivel de host (secundario) existente. Como resultado, el LUN del nuevo almacén de datos se asigna a este igroup secundario existente, que ahora puede estar asociado con múltiples igroups principales (uno para cada almacén de datos). La lista de almacenes de datos de la interfaz de usuario de vCenter Server confirma la creación exitosa del nuevo almacén de datos con el nombre de igroup personalizado.
+
+*Cuando reutiliza el nombre del igroup durante la creación del almacén de datos*
+
+Al crear un almacén de datos mediante la interfaz de usuario de las herramientas ONTAP , puede elegir un igroup padre personalizado existente de la lista desplegable. Después de reutilizar el igroup principal para crear otro almacén de datos, la interfaz de usuario de los sistemas ONTAP muestra esta asociación. El nuevo almacén de datos también aparece en la interfaz de usuario de vCenter Server.
+
+Esta operación también se puede realizar mediante la API. Para reutilizar un igroup existente durante la creación del almacén de datos, especifique el UUID del igroup en la carga útil de la solicitud de API.
+
+*Cuando crea un almacén de datos y un igroup de forma nativa desde ONTAP y vCenter*
+
+Si crea el igroup y el almacén de datos directamente en sistemas ONTAP y entornos VMware, las herramientas de ONTAP no administran estos objetos al principio. Esto crea una estructura de igroup plana.
+
+image:../media/vmfsds-native.png["Almacén de datos y igroup creados de forma nativa"]
+
+Para administrar un almacén de datos y un igroup existente con herramientas ONTAP , debe realizar un descubrimiento del almacén de datos. Las herramientas ONTAP identifican y registran el almacén de datos y el igroup, y los convierten en una estructura anidada en su base de datos. Se crea un nuevo igroup padre usando el nombre personalizado, mientras que el igroup existente se renombra con el prefijo "otv_" y se convierte en el igroup hijo. Las asignaciones del iniciador permanecen sin cambios. Sólo los igroups asignados a almacenes de datos se convierten durante el descubrimiento. Después de esto, la estructura del igroup se parece a la ilustración siguiente.
+
+image:../media/otv-ds.png["Almacén de datos e igroup administrados por herramientas ONTAP"]
+
+Puede crear un almacén de datos directamente en vCenter Server y luego ponerlo bajo la administración de herramientas ONTAP . Primero, cree un igroup plano en sistemas ONTAP y asígnele un LUN. Después de ejecutar el descubrimiento del almacén de datos en las herramientas ONTAP , el igroup plano se convierte en una estructura anidada. Luego, las herramientas de ONTAP administran el igroup y lo renombran con el prefijo 'otv_'. El LUN permanece asignado al mismo igroup durante todo este proceso.
+
+*Cómo las herramientas de ONTAP reutilizan igroups creados de forma nativa*
+
+Puede aprovisionar un almacén de datos en las herramientas de ONTAP utilizando un igroup creado originalmente en los sistemas de ONTAP , después de que las herramientas de ONTAP lo administren. Estos igroups aparecen en la lista desplegable del nombre del grupo iniciador personalizado. Luego, el nuevo LUN del almacén de datos se asigna al igroup secundario normalizado correspondiente, como "otv_NativeIgroup1".
+
+Las ONTAP tools for VMware vSphere no detectan ni utilizan igroups creados en el sistema ONTAP que no estén administrados por herramientas ONTAP o vinculados a un almacén de datos.

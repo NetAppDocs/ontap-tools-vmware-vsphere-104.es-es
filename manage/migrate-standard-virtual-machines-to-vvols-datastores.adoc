@@ -1,0 +1,28 @@
+---
+permalink: manage/migrate-standard-virtual-machines-to-vvols-datastores.html 
+sidebar: sidebar 
+keywords: Migrate NFS and VMFS virtual machines 
+summary: 'Puede migrar máquinas virtuales desde almacenes de datos NFS y VMFS a almacenes de datos Virtual Volumes \(vVols\) para aprovechar la administración de máquinas virtuales basada en políticas y otras capacidades de vVols . Los almacenes de datos vVols le permiten cumplir con los requisitos de mayor carga de trabajo.' 
+---
+= Migrar máquinas virtuales con almacenes de datos NFS y VMFS a almacenes de datos vVols
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede migrar máquinas virtuales desde almacenes de datos NFS y VMFS a almacenes de datos de Virtual Volumes (vVols) para aprovechar la administración de máquinas virtuales basada en políticas y otras capacidades de vVols . Los almacenes de datos de vVols le permiten cumplir con los requisitos de mayor carga de trabajo.
+
+.Antes de empezar
+Asegúrese de que VASA Provider no se esté ejecutando en ninguna de las máquinas virtuales que planea migrar.  Si migra una máquina virtual que ejecuta VASA Provider a un almacén de datos vVols , no podrá realizar ninguna operación de administración, incluido el encendido de las máquinas virtuales que están en almacenes de datos vVols .
+
+*Acerca de esta tarea*
+
+Cuando migra desde un almacén de datos NFS y VMFS a un almacén de datos vVols , vCenter Server utiliza las API de vStorage para la descarga de integración de matrices (VAAI) al mover datos desde almacenes de datos VMFS, pero no desde un archivo VMDK de NFS.  Las descargas de VAAI normalmente reducen la carga en el host.
+
+.Pasos
+. Haga clic derecho en la máquina virtual que desea migrar y seleccione *Migrar*.
+. Seleccione *Cambiar solo almacenamiento* y luego seleccione *Siguiente*.
+. Seleccione un formato de disco virtual, una política de almacenamiento de VM y un almacén de datos vVol que coincida con las características del almacén de datos que está migrando.
+. Revise la configuración y seleccione *Finalizar*.
+

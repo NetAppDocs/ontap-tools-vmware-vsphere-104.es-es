@@ -1,0 +1,132 @@
+---
+permalink: deploy/deployment-error-codes.html 
+sidebar: sidebar 
+keywords: upgrade 
+summary: Esta página describe los códigos de error para las operaciones de implementación, reinicio y recuperación de las ONTAP tools for VMware vSphere . 
+---
+= Códigos de error de implementación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Es posible que encuentre códigos de error durante las operaciones de implementación, reinicio y recuperación de las ONTAP tools for VMware vSphere .  Los códigos de error tienen cinco dígitos, donde los dos primeros dígitos representan el script que encontró el problema y los tres últimos dígitos representan el flujo de trabajo específico dentro de ese script.
+
+Todos los registros de errores se graban en el archivo ansible-perl-errors.log para facilitar el seguimiento y la resolución de problemas. Este archivo de registro contiene el código de error y la tarea de Ansible fallida.
+
+
+NOTE: Los códigos de error proporcionados en esta página son sólo para referencia.  Comuníquese con el equipo de soporte si el error persiste o si no se menciona ninguna solución.
+
+La siguiente tabla enumera los códigos de error y los nombres de archivos correspondientes.
+
+|===
+
+
+| *Código de error* | *Nombre del guión* 
+
+
+| 00 | firstboot-network-config.pl, modo de implementación 
+
+
+| 01 | firstboot-network-config.pl, actualización de modo 
+
+
+| 02 | validación de entradas de firstboot.pl 
+
+
+| 03 | firstboot-deploy-otv-ng.pl, implementar, HA 
+
+
+| 04 | firstboot-deploy-otv-ng.pl, implementación, sin HA 
+
+
+| 05 | firstboot-deploy-otv-ng.pl, reiniciar 
+
+
+| 06 | firstboot-deploy-otv-ng.pl, actualización, alta disponibilidad 
+
+
+| 07 | firstboot-deploy-otv-ng.pl, actualización, sin alta disponibilidad 
+
+
+| 08 | firstboot-otv-recovery.pl 
+
+
+| 09 | post-deploy-upgrade.pl 
+|===
+Los últimos tres dígitos del código de error indican el error de flujo de trabajo específico dentro del script:
+
+|===
+
+
+| *Código de error de implementación* | *Flujo de trabajo* | *Resolución* 
+
+
+| 049 | Para la red y la validación, el script de Perl también los asignará en breve. | - 
+
+
+| 050 | Error en la generación de clave SSH | Reinicie la máquina virtual (VM) principal. 
+
+
+| 053 | Error al instalar RKE2 | Ejecute lo siguiente y reinicie la máquina virtual principal o vuelva a implementarla: sudo rke2-killall.sh (todas las máquinas virtuales) sudo rke2-uninstall.sh (todas las máquinas virtuales). 
+
+
+| 054 | Error al configurar kubeconfig | Redistribuir 
+
+
+| 055 | Error al implementar el registro | Si el pod de registro está presente, espere hasta que esté listo y luego reinicie la máquina virtual principal o vuelva a implementarla. 
+
+
+| 059 | La implementación de KubeVip ha fallado | Asegúrese de que la dirección IP virtual para el plano de control de Kubernetes y la dirección IP de las herramientas ONTAP proporcionadas durante la implementación pertenezcan a la misma VLAN y sean direcciones IP libres.  Reiniciar si todos los puntos anteriores son correctos.  De lo contrario, vuelva a implementarlo. 
+
+
+| 060 | La implementación del operador ha fallado | Reanudar 
+
+
+| 061 | La implementación de los servicios ha fallado | Realice la depuración básica de Kubernetes, como obtener pods, obtener rs, obtener svc, etc., en el espacio de nombres ntv-system para obtener más detalles y registros de errores en /var/log/ansible-perl-errors.log y /var/log/ansible-run.log y vuelva a implementar. 
+
+
+| 062 | La implementación de los servicios de herramientas ONTAP ha fallado | Consulte los registros de errores en /var/log/ansible-perl-errors.log para obtener más detalles y volver a implementar. 
+
+
+| 065 | La URL de la página Swagger no es accesible | Redistribuir 
+
+
+| 066 | Los pasos posteriores a la implementación del certificado de puerta de enlace han fallado | Haga lo siguiente para recuperar/completar la actualización: * Habilite el shell de diagnóstico.  * Ejecute el comando 'sudo perl /home/maint/scripts/post-deploy-upgrade.pl --postDeploy'.  * Consulte los registros en /var/log/post-deploy-upgrade.log. 
+
+
+| 088 | La configuración de rotación de registros para journald ha fallado | Verifique la configuración de red de la máquina virtual que sea compatible con el host en el que está alojada la máquina virtual.  Puede intentar migrar a otro host y reiniciar la máquina virtual. 
+
+
+| 089 | El cambio de propiedad del archivo de configuración de rotación del registro de resumen ha fallado | Reinicie la máquina virtual principal. 
+
+
+| 096 | Instalar el aprovisionador de almacenamiento dinámico | - 
+
+
+| 108 | Falló el script de siembra | - 
+|===
+|===
+
+
+| *Código de error de reinicio* | *Flujo de trabajo* | *Resolución* 
+
+
+| 067 | Se agotó el tiempo de espera del servidor rke2. | - 
+
+
+| 101 | No se pudo restablecer la contraseña del usuario de mantenimiento/consola. | - 
+
+
+| 102 | No se pudo eliminar el archivo de contraseña durante el restablecimiento de la contraseña del usuario de mantenimiento/consola. | - 
+
+
+| 103 | No se pudo actualizar la nueva contraseña de usuario de mantenimiento/consola en la bóveda. | - 
+
+
+| 088 | La configuración de rotación de registro para journald ha fallado. | Verifique la configuración de red de la máquina virtual que sea compatible con el host en el que está alojada la máquina virtual.  Puede intentar migrar a otro host y reiniciar la máquina virtual. 
+
+
+| 089 | Se ha producido un error al cambiar la propiedad del archivo de configuración de rotación del registro de resumen. | Reinicie la máquina virtual. 
+|===

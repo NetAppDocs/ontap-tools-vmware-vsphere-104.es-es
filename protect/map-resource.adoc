@@ -1,0 +1,37 @@
+---
+permalink: protect/map-resource.html 
+sidebar: sidebar 
+keywords:  
+summary: Debe asignar sus recursos en el sitio protegido y en el sitio de recuperación para que las máquinas virtuales estén configuradas para conmutar por error en un grupo de hosts u otro. 
+---
+= Configurar asignaciones de recursos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe asignar sus recursos en el sitio protegido y en el sitio de recuperación para que las máquinas virtuales estén configuradas para conmutar por error en un grupo de hosts u otro.
+
+.Antes de empezar
+Deberías haber conectado los sitios protegidos y de recuperación.
+
+
+NOTE: En VMware Live Site Recovery, los recursos pueden ser grupos de recursos, hosts ESXi o clústeres de vSphere.
+
+.Pasos
+. Inicie sesión en vCenter Server y seleccione *Site Recovery* > *Sitios*.
+. Seleccione su sitio protegido y seleccione *Administrar*.
+. Seleccione *Asignaciones de recursos* > *Nuevo* en la pestaña de administración para crear una nueva asignación de recursos.
+. En el asistente Crear asignación de recursos, realice lo siguiente:
++
+.. Seleccione *Preparar automáticamente asignaciones para recursos con nombres coincidentes* y seleccione *Siguiente*.
+.. Seleccione los objetos del centro de datos necesarios para los sitios protegidos y de recuperación y seleccione *Agregar asignaciones*.
+.. Seleccione *Siguiente* después de que las asignaciones se hayan creado correctamente.
+.. Seleccione el objeto utilizado anteriormente para crear la asignación inversa y luego seleccione *Finalizar*.
+
+
+
+
+.Resultado
+La página Asignaciones de recursos muestra los recursos del sitio protegido y los recursos del sitio de recuperación.  Puede seguir los mismos pasos para otras redes de su entorno.

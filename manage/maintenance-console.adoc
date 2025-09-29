@@ -1,0 +1,76 @@
+---
+permalink: manage/maintenance-console.html 
+sidebar: sidebar 
+keywords:  
+summary: Puede administrar sus configuraciones de aplicaciones, sistemas y redes mediante la consola de mantenimiento de las herramientas ONTAP .  Puede cambiar su contraseña de administrador y su contraseña de mantenimiento.  También puede generar paquetes de soporte, establecer diferentes niveles de registro, ver y administrar configuraciones de TLS e iniciar diagnósticos remotos. 
+---
+= Descripción general de las ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede administrar sus configuraciones de aplicaciones, sistemas y redes mediante la consola de mantenimiento de las herramientas ONTAP .  Puede cambiar su contraseña de administrador y su contraseña de mantenimiento.  También puede generar paquetes de soporte, establecer diferentes niveles de registro, ver y administrar configuraciones de TLS e iniciar diagnósticos remotos.
+
+Debe tener las herramientas de VMware instaladas después de implementar las ONTAP tools for VMware vSphere para acceder a la consola de mantenimiento.  Deberías usar `maint` como el nombre de usuario y la contraseña que configuró durante la implementación para iniciar sesión en la consola de mantenimiento de las herramientas ONTAP .  Debes usar *nano* para editar los archivos en la consola de inicio de sesión de mantenimiento o root.
+
+
+NOTE: Debes establecer una contraseña para el `diag` usuario mientras habilita el diagnóstico remoto.
+
+Debe utilizar la pestaña *Resumen* de las ONTAP tools for VMware vSphere para acceder a la consola de mantenimiento.  Cuando seleccionasimage:../media/launch-maintenance-console.gif["Botón de reproducción"] , se inicia la consola de mantenimiento.
+
+|===
+
+
+| *Menú de la consola* | *Opciones* 
+
+
+ a| 
+Configuración de la aplicación
+ a| 
+. Mostrar resumen del estado del servidor
+. Cambiar el nivel de LOG para los servicios de proveedor de VASA y los servicios de SRA
+
+
+
+
+ a| 
+Configuración del sistema
+ a| 
+. Reiniciar la máquina virtual
+. Apagar la máquina virtual
+. Cambiar la contraseña del usuario 'maint'
+. Cambiar zona horaria
+. Aumentar el tamaño del disco de la cárcel (/jail)
+. Mejora
+. Instalar VMware Tools
+
+
+
+
+ a| 
+Configuración de red
+ a| 
+. Mostrar la configuración de la dirección IP
+. Mostrar la configuración de búsqueda de nombres de dominio
+. Cambiar la configuración de búsqueda del nombre de dominio
+. Mostrar rutas estáticas
+. Cambiar rutas estáticas
+. Confirmar cambios
+. Hacer ping a un host
+. Restaurar la configuración predeterminada
+
+
+
+
+ a| 
+Soporte y diagnóstico
+ a| 
+. Acceso al shell de diagnóstico
+. Habilitar el acceso de diagnóstico remoto
+. Proporcionar credenciales de vCenter para la copia de seguridad
+. Tomar copia de seguridad
+
+
+|===

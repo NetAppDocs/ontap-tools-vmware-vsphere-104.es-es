@@ -1,0 +1,107 @@
+---
+permalink: deploy/ontap-tools-deployment.html 
+sidebar: sidebar 
+keywords:  
+summary: Las ONTAP tools for VMware vSphere se implementan como un único nodo pequeño con servicios básicos para soportar almacenes de datos NFS y VMFS. 
+---
+= Implementar ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las ONTAP tools for VMware vSphere se implementan como un único nodo pequeño con servicios básicos para soportar almacenes de datos NFS y VMFS. El proceso de implementación de las herramientas ONTAP puede tardar hasta 45 minutos.
+
+.Antes de empezar
+Una biblioteca de contenido en VMware es un contenedor que almacena plantillas de máquinas virtuales, plantillas de vApp y otros tipos de archivos. La implementación con biblioteca de contenido proporciona una experiencia fluida, ya que no depende de la conectividad de red.
+
+
+NOTE: Debe almacenar la biblioteca de contenido en un almacén de datos compartido para que todos los hosts dentro de un clúster puedan acceder a ella.  Cree una biblioteca de contenido para almacenar el OVA antes de configurar el dispositivo con la configuración HA.  No elimine la plantilla de la biblioteca de contenido después de la implementación.
+
+
+NOTE: Para habilitar la implementación de HA más adelante, no implemente la máquina virtual que aloja las herramientas ONTAP directamente en un host ESXi.  En su lugar, impleméntelo en un clúster o grupo de recursos.
+
+Si no tienes una biblioteca de contenido, sigue estos pasos para crear una:
+
+*Crear una biblioteca de contenido* Si planea utilizar solo una implementación pequeña de un solo nodo, no es necesario crear una biblioteca de contenido.
+
+. Descargue el archivo que contiene los binarios (_.ova_) y los certificados firmados para las ONTAP tools for VMware vSphere desde  https://mysupport.netapp.com/site/products/all/details/otv10/downloads-tab["Sitio de soporte de NetApp"^] .
+. Inicie sesión en el cliente vSphere
+. Seleccione el menú del cliente vSphere y seleccione *Bibliotecas de contenido*.
+. Seleccione *Crear* a la derecha de la página.
+. Proporcione un nombre para la biblioteca y cree la biblioteca de contenido.
+. Navegue hasta la biblioteca de contenido que ha creado.
+. Seleccione *Acciones* a la derecha de la página y seleccione *Importar elemento* e importe el archivo OVA.
+
+
+
+NOTE: Para obtener más información, consulte https://blogs.vmware.com/vsphere/2020/01/creating-and-using-content-library.html["Creación y uso de la biblioteca de contenido"] blog.
+
+
+NOTE: Antes de continuar con la implementación, configure el Programador de recursos distribuidos (DRS) del clúster en el inventario en "Conservador". Esto garantiza que las máquinas virtuales no se migren durante la instalación.
+
+Las ONTAP tools for VMware vSphere se implementan inicialmente como una configuración sin alta disponibilidad. Para escalar a la implementación de HA, necesitará habilitar la conexión en caliente de la CPU y la conexión en caliente de la memoria.  Puede realizar este paso como parte del proceso de implementación o editar la configuración de la máquina virtual después de la implementación.
+
+.Pasos
+. Descargue el archivo que contiene los binarios (_.ova_) y los certificados firmados para las ONTAP tools for VMware vSphere desde  https://mysupport.netapp.com/site/products/all/details/otv10/downloads-tab["Sitio de soporte de NetApp"^] Si ha importado el OVA a la biblioteca de contenido, puede omitir este paso y continuar con el siguiente.
+. Inicie sesión en el servidor vSphere.
+. Navegue hasta el grupo de recursos, el clúster o el host donde desea implementar el OVA.
++
+
+NOTE: Nunca almacene ONTAP tools for VMware vSphere en almacenes de datos vVols que administra.
+
+. Puede implementar el OVA desde la biblioteca de contenido o desde el sistema local.
++
+|===
+
+
+| Desde el sistema local | De la biblioteca de contenidos 
+
+
+| a. Haga clic derecho y seleccione *Implementar plantilla OVF...*. b. Seleccione el archivo OVA desde la URL o busque su ubicación y seleccione *Siguiente*. | a. Vaya a su biblioteca de contenido y seleccione el elemento que desea implementar. b. Seleccione *Acciones* > *Nueva máquina virtual de esta plantilla*. 
+|===
+. En el campo *Seleccionar un nombre y carpeta*, ingrese el nombre de la máquina virtual y elija su ubicación.
++
+** Si está utilizando la versión vCenter Server 8.0.3, seleccione la opción *Personalizar el hardware de esta máquina virtual*, que activará un paso adicional llamado *Personalizar hardware* antes de pasar a la ventana *Listo para completar*.
+** Si está utilizando la versión vCenter Server 7.0.3, siga los pasos de la sección *¿Qué sigue?* al final de la implementación.image:../media/select-name.png["Seleccione un nombre y una carpeta"]
+
+
+. Seleccione un recurso informático y seleccione *Siguiente*.  Opcionalmente, marque la casilla para *Encender automáticamente la máquina virtual implementada*.
+. Revise los detalles de la plantilla y seleccione *Siguiente*.
+. Lea y acepte el acuerdo de licencia y seleccione *Siguiente*.
+. Seleccione el almacenamiento para la configuración y el formato del disco y seleccione *Siguiente*.
+. Seleccione la red de destino para cada red de origen y seleccione *Siguiente*.
+. En la ventana *Personalizar plantilla*, complete los campos obligatorios y seleccione *Siguiente*.image:../media/customize-temp.png["Personalizar plantilla"]
++
+** La información se valida durante la instalación. Si hay una discrepancia, aparece un mensaje de error en la consola web y se le solicita que lo corrija.
+** Los nombres de host deben incluir letras (AZ, az), dígitos (0-9) y guiones (-).  Para configurar la pila dual, especifique el nombre de host asignado a la dirección IPv6.
++
+
+NOTE: No se admite IPv6 puro.  El modo mixto es compatible con VLAN que contienen direcciones IPv6 e IPv4.
+
+** La dirección IP de las herramientas ONTAP es la interfaz principal para comunicarse con las herramientas ONTAP .
+** IPv4 es el componente de dirección IP de la configuración del nodo, que se puede utilizar para habilitar el shell de diagnóstico y el acceso SSH en el nodo con fines de depuración y mantenimiento.
+
+
+. Al utilizar la versión vCenter Server 8.0.3, en la ventana *Personalizar hardware*, habilite las opciones *Adición activa de CPU* y *Conexión activa de memoria* para permitir la funcionalidad de alta disponibilidad.image:../media/customize-hw.png["Personalizar el hardware"]
+. Revise los detalles en la ventana *Listo para completar*, seleccione *Finalizar*.
++
+A medida que se crea la tarea de implementación, el progreso se muestra en la barra de tareas de vSphere.
+
+. Encienda la VM después de completar la tarea si no se seleccionó la opción para encender automáticamente la VM.
+
+
+Puede seguir el progreso de la instalación dentro de la consola web de la máquina virtual.
+
+Si hay discrepancias en el formulario OVF, un cuadro de diálogo solicitará una acción correctiva. Utilice el botón de tabulación para navegar, realizar los cambios necesarios y seleccionar *Aceptar*. Tiene tres intentos para resolver cualquier problema. Si los problemas continúan después de tres intentos, el proceso de instalación se detendrá y se recomienda volver a intentar la instalación en una nueva máquina virtual.
+
+.¿Que sigue?
+Si tiene ONTAP tools for VMware vSphere con vCenter Server 7.0.3, siga estos pasos después de la implementación.
+
+. Inicie sesión en el cliente vCenter
+. Apague el nodo de herramientas ONTAP .
+. Vaya a las ONTAP tools for VMware vSphere en *Inventarios* y seleccione la opción *Editar configuración*.
+. En las opciones de *CPU*, marque la casilla de verificación *Habilitar adición activa de CPU*
+. En las opciones de *Memoria*, marque la casilla de verificación *Habilitar* junto a *Conexión en caliente de memoria*.
+

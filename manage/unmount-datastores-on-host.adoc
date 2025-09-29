@@ -1,0 +1,36 @@
+---
+permalink: manage/unmount-datastores-on-host.html 
+sidebar: sidebar 
+keywords:  
+summary: La acción Desmontar almacén de datos desmonta un almacén de datos NFS o VMFS de los hosts ESXi.  La acción Desmontar almacén de datos está habilitada para almacenes de datos NFS y VMFS descubiertos o administrados por las ONTAP tools for VMware vSphere. 
+---
+= Desmontar almacenes de datos NFS y VMFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La acción Desmontar almacén de datos desmonta un almacén de datos NFS o VMFS de los hosts ESXi.  La acción Desmontar almacén de datos está habilitada para almacenes de datos NFS y VMFS descubiertos o administrados por las ONTAP tools for VMware vSphere.
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Haga clic con el botón derecho en un objeto de almacén de datos NFS o VMFS y seleccione *Desmontar almacén de datos*.
++
+Se abre un cuadro de diálogo que enumera los hosts ESXi en los que está montado el almacén de datos.  Cuando la operación se realiza en un almacén de datos protegido, se muestra un mensaje de advertencia en la pantalla.
+
+. Seleccione uno o más hosts ESXi para desmontar el almacén de datos.
++
+No es posible desmontar el almacén de datos de todos los hosts.  La interfaz de usuario sugiere que utilice la operación de eliminación del almacén de datos en su lugar.
+
+. Seleccione el botón *Desmontar*.
++
+Si el almacén de datos es parte de un clúster de host protegido, se muestra un mensaje de advertencia.
+
+
+
+
+NOTE: Si se desmonta el almacén de datos protegido, la configuración de protección existente podría resultar en una protección parcial. Consulte link:../manage/edit-hostcluster-protection.html["Modificar el clúster de host protegido"] para permitir una protección completa.
+
+.¿Que sigue?
+Puede seguir el progreso en el panel de tareas recientes.

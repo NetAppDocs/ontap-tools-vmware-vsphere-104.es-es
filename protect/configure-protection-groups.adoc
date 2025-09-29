@@ -1,0 +1,72 @@
+---
+permalink: protect/configure-protection-groups.html 
+sidebar: sidebar 
+keywords:  
+summary: Debe crear grupos de protección para proteger un grupo de máquinas virtuales en el sitio protegido. 
+---
+= Configurar sitios protegidos y de recuperación
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe crear grupos de protección para proteger un grupo de máquinas virtuales en el sitio protegido.
+
+Al agregar un nuevo almacén de datos, puede incluirlo en el grupo de almacenes de datos existente o agregar uno nuevo y crear un nuevo volumen o grupo de consistencia para su protección. Después de agregar un nuevo almacén de datos a un grupo de consistencia o volumen protegido, actualice SnapMirror y realice la detección de almacenamiento tanto en el sitio protegido como en el de recuperación. Puede ejecutar la detección manualmente o de forma programada para garantizar que el nuevo almacén de datos se detecte y proteja.
+
+
+
+== Sitios de protección y recuperación de pares
+
+Debe vincular los sitios protegidos y de recuperación creados con su cliente vSphere para permitir que el Adaptador de replicación de almacenamiento (SRA) descubra los sistemas de almacenamiento.
+
+
+NOTE: El adaptador de replicación de almacenamiento (SRA) admite la distribución en abanico con una relación de sincronización de tipo dúplex de conmutación por error automatizada y una relación asincrónica SnapMirror en un grupo de consistencia.  Sin embargo, no se admite la distribución en abanico con dos SnapMirror asíncronos en un grupo de consistencia ni la distribución en abanico de SnapMirrors en un volumen.
+
+.Antes de empezar
+* Debe tener VMware Live Site Recovery instalado en los sitios protegidos y de recuperación.
+* Debe tener SRA instalado en los sitios protegidos y de recuperación.
+
+
+.Pasos
+. Haga doble clic en *Recuperación del sitio* en la página de inicio de vSphere Client y seleccione *Sitios*.
+. Seleccione *Objetos* > *Acciones* > *Emparejar sitios*.
+. En el cuadro de diálogo *Emparejar servidores de Site Recovery Manager*, ingrese la dirección del controlador de servicios de plataforma del sitio protegido y luego seleccione *Siguiente*.
+. En la sección Seleccionar vCenter Server, haga lo siguiente:
++
+.. Verifique que el vCenter Server del sitio protegido aparezca como un candidato coincidente para el emparejamiento.
+.. Ingrese las credenciales administrativas de SSO y luego seleccione *Finalizar*.
+
+
+. Si se le solicita, seleccione *Sí* para aceptar los certificados de seguridad.
+
+
+.Resultado
+Tanto los sitios protegidos como los de recuperación aparecerán en el cuadro de diálogo Objetos.
+
+
+
+== Configurar grupos de protección
+
+.Antes de empezar
+Debe asegurarse de que tanto el sitio de origen como el de destino estén configurados para lo siguiente:
+
+* La misma versión de VMware Live Site Recovery instalada
+* Máquinas virtuales
+* Sitios protegidos y de recuperación emparejados
+* Los almacenes de datos de origen y destino deben montarse en los sitios respectivos
+
+
+.Pasos
+. Inicie sesión en vCenter Server y seleccione *Site Recovery* > *Grupos de protección*.
+. En el panel *Grupos de protección*, seleccione *Nuevo*.
+. Especifique un nombre y una descripción para el grupo de protección, la dirección y seleccione *Siguiente*.
+. En el campo *Tipo*, seleccione la opción *Tipo...* como grupos de almacenes de datos (replicación basada en matrices) para almacenes de datos NFS y VMFS. El dominio de fallos no son más que máquinas virtuales de servicio (SVM) con replicación habilitada. Se muestran las SVM que solo tienen emparejamiento implementado y no presentan problemas.
+. En la pestaña Grupos de replicación, seleccione el par de matrices habilitado o los grupos de replicación que tienen la máquina virtual que configuró y luego seleccione *Siguiente*.
++
+Todas las máquinas virtuales del grupo de replicación se agregan al grupo de protección.
+
+. Puede seleccionar el plan de recuperación existente o crear uno nuevo seleccionando *Agregar al nuevo plan de recuperación.*
+. En la pestaña Listo para completar, revise los detalles del grupo de protección que creó y luego seleccione *Finalizar*.
+

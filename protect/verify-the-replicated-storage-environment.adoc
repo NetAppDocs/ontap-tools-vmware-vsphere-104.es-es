@@ -1,0 +1,30 @@
+---
+permalink: protect/verify-the-replicated-storage-environment.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Debe verificar que el sitio protegido y el sitio de recuperación estén emparejados correctamente después de configurar el Adaptador de replicación de almacenamiento (SRA).  El sistema de almacenamiento replicado debe ser detectable tanto por el sitio protegido como por el sitio de recuperación.' 
+---
+= Verificar sistemas de almacenamiento replicados
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Debe verificar que el sitio protegido y el sitio de recuperación estén emparejados correctamente después de configurar el Adaptador de replicación de almacenamiento (SRA).  El sistema de almacenamiento replicado debe ser detectable tanto por el sitio protegido como por el sitio de recuperación.
+
+.Antes de empezar
+* Deberías haber configurado tu sistema de almacenamiento.
+* Debería haber emparejado el sitio protegido y el sitio de recuperación mediante el administrador de matriz VMware Live Site Recovery.
+* Debe haber habilitado la licencia FlexClone y la licencia SnapMirror antes de realizar la operación de conmutación por error de prueba y la operación de conmutación por error para SRA.
+* Debe tener las mismas políticas y programaciones de SnapMirror en los sitios de origen y destino.
+
+
+.Pasos
+. Inicie sesión en su vCenter Server.
+. Vaya a *Recuperación del sitio* > *Replicación basada en matriz*.
+. Seleccione el par de matrices requerido y verifique los detalles correspondientes.
++
+Los sistemas de almacenamiento deben descubrirse en el sitio protegido y en el sitio de recuperación con el estado "Habilitado".
+
+

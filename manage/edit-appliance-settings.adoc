@@ -1,0 +1,64 @@
+---
+permalink: manage/edit-appliance-settings.html 
+sidebar: sidebar 
+keywords:  
+summary: Puede cambiar la contraseña de administrador utilizando el Administrador de herramientas de ONTAP . 
+---
+= Cambiar las ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al utilizar el Administrador de herramientas de ONTAP , escale la configuración de las ONTAP tools for VMware vSphere para aumentar la cantidad de nodos en la implementación o cambiar la configuración a una configuración de alta disponibilidad (HA).  Las ONTAP tools for VMware vSphere se implementan inicialmente en una configuración de nodo único que no es de alta disponibilidad.
+
+
+NOTE: Para migrar a HA cuando la copia de seguridad que no es de HA está habilitada, primero deshabilite la copia de seguridad y vuelva a habilitarla después de la migración.
+
+.Antes de empezar
+* Asegúrese de que su plantilla OVA tenga la misma versión OVA que el Nodo 1.  El nodo 1 es el nodo predeterminado donde se implementan inicialmente las ONTAP tools for VMware vSphere OVA.
+* Asegúrese de que la adición activa de CPU y la conexión activa de memoria estén habilitadas.
+* En vCenter Server, configure el nivel de automatización del Servicio de recuperación ante desastres (DRS) en parcialmente automatizado.  Después de implementar HA, vuelva a automatizarlo por completo.
+* Los nombres de host de los nodos en la configuración de HA deben estar en minúsculas.
+
+
+.Pasos
+. Inicie el Administrador de herramientas de ONTAP desde un navegador web: `\https://<ONTAPtoolsIP>:8443/virtualization/ui/`
+. Inicie sesión con las credenciales de administrador de las ONTAP tools for VMware vSphere que proporcionó durante la implementación.
+. Seleccione *Editar configuración del dispositivo* en la sección de descripción general.
+. En la sección *Configuración*, puede escalar para aumentar el tamaño del nodo y habilitar la configuración de HA según sus necesidades.  Necesita las credenciales de vCenter Server para realizar cualquier cambio.
++
+Cuando las herramientas ONTAP están en configuración HA, puede cambiar los detalles de la biblioteca de contenido.  Debes proporcionar la contraseña nuevamente para enviar la nueva edición.
+
++
+
+NOTE: En las ONTAP tools for VMware vSphere, solo se permite aumentar el tamaño del nodo; no se puede reducir el tamaño del nodo. En una configuración que no es HA, solo se admite una configuración de tamaño mediano. En una configuración de alta disponibilidad, se admiten configuraciones medianas y grandes.
+
+. Utilice el botón de alternancia HA para habilitar la configuración de HA.  En la página *Configuración de HA*, asegúrese de que:
++
+** La biblioteca de contenido pertenece al mismo vCenter Server donde se ejecutan las máquinas virtuales del nodo de herramientas de ONTAP . Las credenciales de vCenter Server se utilizan para validar y descargar la plantilla OVA para los cambios del dispositivo.
+** La máquina virtual que aloja las herramientas ONTAP no está implementada directamente en un host ESXi.  La máquina virtual debe implementarse en un clúster o en un grupo de recursos.
++
+
+NOTE: Una vez habilitada la configuración de HA, no es posible volver a una configuración de nodo único que no sea de HA.
+
+
+
+. En la sección *Configuración de HA* de la ventana *Editar configuración del dispositivo*, puede ingresar los detalles de los nodos 2 y 3.  Las ONTAP tools for VMware vSphere admiten tres nodos en la configuración de alta disponibilidad.
++
+
+NOTE: La mayoría de las opciones de entrada están rellenas previamente con detalles de la red del Nodo 1 para facilitar el flujo de trabajo. Sin embargo, puede editar los datos de entrada antes de navegar a la página final del asistente. Puede ingresar detalles de la dirección IPv6 para los otros dos nodos solo cuando la dirección IPv6 esté habilitada en el primer nodo.
+
++
+Asegúrese de que un host ESXi contenga solo una máquina virtual de herramientas ONTAP .  Las entradas se validan cada vez que se pasa a la siguiente ventana.
+
+. Revise los detalles en la sección *Resumen* y *Guarde* los cambios.
+
+
+.¿Que sigue?
+La página *Descripción general* muestra el estado de la implementación.  Al utilizar el ID del trabajo, también puede rastrear el estado del trabajo de edición de configuración del dispositivo desde la vista de trabajos.
+
+Si la implementación de HA falla y el estado del nuevo nodo se muestra como "Nuevo", elimine la nueva VM en vCenter antes de volver a intentar la operación de habilitación de HA.
+
+La pestaña *Alertas* en el panel izquierdo enumera las alertas de las ONTAP tools for VMware vSphere.

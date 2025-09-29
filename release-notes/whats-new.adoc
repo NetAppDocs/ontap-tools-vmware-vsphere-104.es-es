@@ -1,0 +1,31 @@
+---
+permalink: release-notes/whats-new.html 
+sidebar: sidebar 
+keywords: 'what"s new, release notes, 10.4, ONTAP tools for VMware vSphere' 
+summary: Conozca las nuevas capacidades disponibles en las ONTAP tools for VMware vSphere 10.4. 
+---
+= Novedades en las ONTAP tools for VMware vSphere 10.4
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Conozca las nuevas capacidades disponibles en las ONTAP tools for VMware vSphere 10.4.
+
+[cols="30%,70%"]
+|===
+| Actualizar | Descripción 
+
+
+| link:../configure/create-datastore.html["Compatibilidad con el sistema ASA r2 con 12 nodos por clúster"] | Las ONTAP tools for VMware vSphere 10.4 admiten flujos de trabajo para sistemas de almacenamiento ASA r2 con hasta 12 nodos por clúster, lo que mejora la eficiencia y la escalabilidad de la administración de datos.  Admite almacenes de datos vVols con protocolos iSCSI y FC, y almacenes de datos VMFS con protocolos iSCSI, FC y NVMe, lo que proporciona opciones de almacenamiento flexibles y mejoradas. 
+
+
+| link:../manage/add-ntpserver.html["Mejoras en la interfaz de usuario del Administrador de herramientas de ONTAP"] | Ahora puede habilitar el servidor NTP para una sincronización horaria precisa en todo el entorno y configurar los ajustes de telemetría para monitorear y analizar el rendimiento del sistema desde la interfaz del Administrador de herramientas de ONTAP .  Estas configuraciones ya no están disponibles en la consola de mantenimiento. 
+
+
+| Capacidades de seguridad mejoradas | Las funciones de seguridad ahora ofrecen protección mejorada y cumplimiento con los estándares de la industria, brindando una experiencia sólida y fácil de usar para ayudar a los administradores a gestionar los entornos VMware de manera más efectiva. 
+
+
+| link:../protect/enable-storage-replication-adapter.html["Capacidades mejoradas de recuperación ante desastres de SRA"] | Las ONTAP tools for VMware vSphere 10.4 ahora admiten operaciones de recuperación ante desastres mediante Site Recovery Appliance (SRA) con instantáneas con nombres personalizados, además de copias de instantáneas programadas de SnapMirror . 
+|===

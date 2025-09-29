@@ -1,0 +1,36 @@
+---
+permalink: configure/add-vcenter.html 
+sidebar: sidebar 
+keywords:  
+summary: Agregue instancias de vCenter Server a las ONTAP tools for VMware vSphere para configurar, administrar y proteger sus almacenes de datos virtuales en su entorno de vCenter Server. 
+---
+= Agregar instancias de vCenter Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Agregue instancias de vCenter Server a las ONTAP tools for VMware vSphere para configurar, administrar y proteger sus almacenes de datos virtuales en su entorno de vCenter Server.  Cuando agrega varias instancias de vCenter Server, se requieren certificados de CA personalizados para una comunicación segura entre las herramientas de ONTAP y cada vCenter Server.
+
+*Acerca de esta tarea*
+
+Al integrarse con vCenter, las herramientas de ONTAP le permiten realizar tareas de almacenamiento como aprovisionamiento, instantáneas y protección de datos directamente desde el cliente vSphere, eliminando la necesidad de cambiar a consolas de administración de almacenamiento independientes.
+
+.Pasos
+. Abra un navegador web y navegue hasta la URL: `\https://<ONTAPtoolsIP>:8443/virtualization/ui/`
+. Inicie sesión con las credenciales de administrador de las ONTAP tools for VMware vSphere que proporcionó durante la implementación.
+. Seleccione *vCenters* > *Agregar* para incorporar las instancias de vCenter Server.  Proporcione su dirección IP o nombre de host de vCenter, nombre de usuario, contraseña y detalles del puerto.
++
+
+NOTE: No necesita una cuenta de administrador para agregar instancias de vCenter a las herramientas de ONTAP .  Puede crear un rol personalizado sin la cuenta de administrador con permisos limitados. Referirse alink:../concepts/rbac-vcenter-use.html["Utilice vCenter Server RBAC con ONTAP tools for VMware vSphere 10"] Para más detalles.
+
+
+
+Agregar una instancia de vCenter Server a las herramientas de ONTAP activa automáticamente las siguientes acciones:
+
+* El complemento del cliente vCenter está registrado como un complemento remoto.
+* Los privilegios personalizados para los complementos y las API se aplican a la instancia de vCenter Server.
+* Se crean roles personalizados para administrar a los usuarios.
+* El complemento aparece como un acceso directo en la interfaz de usuario de vSphere.
+

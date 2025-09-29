@@ -1,0 +1,47 @@
+---
+permalink: manage/delete-ds.html 
+sidebar: sidebar 
+keywords: vVols datastore,delete vVol 
+summary: La acción Eliminar almacén de datos elimina el almacén de datos.  En el caso de un almacén de datos NFS o VMFS, aparece un cuadro de diálogo con la lista de máquinas virtuales que utilizan el almacén de datos. 
+---
+= Eliminar almacenes de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La acción Eliminar almacenamiento del almacén de datos es compatible con todas las ONTAP tools for VMware vSphere almacenes de datos vVols detectados o administrados por VMware vSphere en vCenter Server.  Esta acción permite la eliminación de volúmenes de los almacenes de datos vVols .
+
+La opción de eliminar está deshabilitada cuando hay vVols que residen en un volumen particular.  Además de eliminar volúmenes del almacén de datos, puede eliminar el volumen seleccionado en el almacenamiento ONTAP .
+
+La tarea Eliminar almacén de datos de las ONTAP tools for VMware vSphere en vCenter Server hace lo siguiente:
+
+* Desmonta el contenedor vVol.
+* Limpia el igroup.  Si igroup no está en uso, elimina iqn de igroup.
+* Elimina el contenedor Vvol.
+* Deja los volúmenes Flex en la matriz de almacenamiento.
+
+
+Siga los pasos a continuación para eliminar el almacén de datos NFS, VMFS o vVOL de las herramientas de ONTAP desde vCenter Server:
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Haga clic con el botón derecho en un sistema host, en un clúster de host o en un centro de datos y seleccione *Herramientas de NetApp ONTAP * > *Eliminar almacén de datos*.
++
+
+NOTE: No puedes eliminar los almacenes de datos si hay máquinas virtuales que utilizan ese almacén de datos.  Debe mover las máquinas virtuales a un almacén de datos diferente antes de eliminar el almacén de datos.  No puede seleccionar la casilla de verificación Eliminar volumen si el almacén de datos pertenece a un clúster de host protegido.
+
++
+.. En el caso de un almacén de datos NFS o VMFS, aparece un cuadro de diálogo con la lista de máquinas virtuales que utilizan el almacén de datos.
+.. Si el almacén de datos VMFS se crea en sistemas ASA r2 y es parte de la protección, debe desproteger el almacén de datos antes de eliminarlo.
+.. En el caso de almacenes de datos vVols , la acción de eliminar almacén de datos elimina el almacén de datos solo cuando no hay vVols asociados a él.  El cuadro de diálogo Eliminar almacén de datos proporciona una opción para eliminar volúmenes del clúster ONTAP .
+.. En el caso de almacenes de datos vVols basados ​​en sistemas ASA r2, la casilla de verificación para eliminar los volúmenes de respaldo no es aplicable.
+
+
+. Para eliminar los volúmenes de respaldo en el almacenamiento de ONTAP , seleccione *Eliminar volúmenes en el clúster de ONTAP *.
++
+
+NOTE: No se puede eliminar el volumen del clúster ONTAP de un almacén de datos VMFS que forma parte del clúster de host protegido.
+
+

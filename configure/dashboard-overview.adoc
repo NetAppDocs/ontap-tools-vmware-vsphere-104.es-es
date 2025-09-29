@@ -1,0 +1,46 @@
+---
+permalink: configure/dashboard-overview.html 
+sidebar: sidebar 
+keywords: user roles 
+summary: Cuando selecciona el ícono del complemento de ONTAP tools for VMware vSphere en la sección de accesos directos del cliente vCenter, la interfaz de usuario navega a la página de descripción general.  Esta página actúa como un panel que le proporciona el resumen de las ONTAP tools for VMware vSphere . 
+---
+= Descripción general del panel de control de las ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Cuando selecciona el ícono del complemento de ONTAP tools for VMware vSphere en la sección de accesos directos del cliente vCenter, la interfaz de usuario navega a la página de descripción general.  Esta página actúa como un panel que le proporciona el resumen de las ONTAP tools for VMware vSphere .
+
+En el caso de la configuración del modo vinculado mejorado (ELM), aparece el menú desplegable de selección de vCenter Server y puede seleccionar el vCenter Server que desee para ver los datos relevantes para él. Este menú desplegable está disponible para todas las demás vistas de listado del complemento. La selección de vCenter Server realizada en una página persiste en las pestañas del complemento.image:../media/remote-plugin-dashboard.png["Descripción general del panel de control"]
+
+Desde la página de descripción general, puede ejecutar la acción *Descubrimiento*.  La acción de descubrimiento ejecuta el descubrimiento a nivel de vCenter para detectar cualquier backend de almacenamiento, host, almacén de datos y estado/relaciones de protección recientemente agregados o actualizados.  Puede ejecutar un descubrimiento de entidades a pedido sin tener que esperar el descubrimiento programado.
+
+
+NOTE: El botón de acción se habilitará solo si tiene el privilegio de realizar la acción de descubrimiento.
+
+Una vez enviada la solicitud de descubrimiento, puede seguir el progreso de la acción en el panel de tareas recientes.
+
+El tablero tiene varias tarjetas que muestran diferentes elementos del sistema.  La siguiente tabla muestra las diferentes cartas y lo que representan.
+
+|===
+
+
+| *Tarjeta* | *Descripción* 
+
+
+| Estado | La tarjeta de estado muestra la cantidad de backends de almacenamiento y el estado general de salud de los backends de almacenamiento y del proveedor VASA.  El estado de los backends de almacenamiento se muestra como *Saludable* cuando el estado de todos los backends de almacenamiento es normal y se muestra como *No saludable* si alguno de los backends de almacenamiento tiene un problema (estado Desconocido/Inalcanzable/Degradado).  Seleccione la información sobre herramientas para abrir los detalles de estado de los backends de almacenamiento.  Puede seleccionar cualquier backend de almacenamiento para obtener más detalles.  El enlace *Otros estados del proveedor VASA* muestra el estado actual del proveedor VASA que está registrado en vCenter Server. 
+
+
+| Backends de almacenamiento - Capacidad | Esta tarjeta muestra la capacidad agregada, utilizada y disponible, de todos los backends de almacenamiento para la instancia de vCenter Server seleccionada. En el caso de los sistemas de almacenamiento ASA r2, los datos de capacidad no se muestran porque se trata de un sistema desagregado. 
+
+
+| Máquinas virtuales | Esta tarjeta muestra las 10 principales máquinas virtuales ordenadas por métrica de rendimiento.  Puede seleccionar el encabezado para obtener las 10 máquinas virtuales principales para la métrica seleccionada ordenadas en orden ascendente o descendente.  Los cambios de clasificación y filtrado realizados en la tarjeta persisten hasta que usted cambie o borre la memoria caché del navegador. 
+
+
+| Almacenes de datos | Esta tarjeta muestra los 10 principales almacenes de datos ordenados según una métrica de rendimiento.  Puede seleccionar el encabezado para obtener los 10 principales almacenes de datos para la métrica seleccionada ordenados en orden ascendente o descendente.  Los cambios de clasificación y filtrado realizados en la tarjeta persisten hasta que usted cambie o borre la memoria caché del navegador.  Hay un menú desplegable Tipo de almacén de datos para seleccionar el tipo de almacén de datos: NFS, VMFS o vVols. 
+
+
+| Tarjeta de conformidad del host ESXi | Esta tarjeta muestra el estado de cumplimiento general de todas las configuraciones de hosts ESXi (para el vCenter seleccionado) con respecto a las configuraciones de host NetApp recomendadas por grupo/categoría de configuración.  Puede seleccionar el enlace *Aplicar configuración recomendada* para aplicar la configuración recomendada.  Puede seleccionar el estado compatible de los hosts para ver la lista de hosts. 
+|===

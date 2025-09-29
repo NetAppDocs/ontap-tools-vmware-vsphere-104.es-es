@@ -1,0 +1,34 @@
+---
+permalink: manage/mount-datastores-on-host.html 
+sidebar: sidebar 
+keywords:  
+summary: Al montar un almacén de datos se proporciona acceso de almacenamiento a hosts adicionales.  Puede montar el almacén de datos en los hosts adicionales después de agregar los hosts a su entorno VMware. 
+---
+= Montar almacenes de datos NFS y VMFS
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Al montar un almacén de datos se proporciona acceso de almacenamiento a hosts adicionales.  Puede montar el almacén de datos en los hosts adicionales después de agregar los hosts a su entorno VMware.
+
+.Acerca de esta tarea
+* Algunas acciones de clic derecho están deshabilitadas o no están disponibles según la versión del cliente vSphere y el tipo de almacén de datos seleccionado.
++
+** Si está utilizando el cliente vSphere 8.0 o versiones posteriores, algunas de las opciones de clic derecho están ocultas.
+** Desde las versiones vSphere 7.0U3 a vSphere 8.0, aunque aparezcan las opciones, la acción estará deshabilitada.
+
+
+* La opción de montaje del almacén de datos está deshabilitada cuando el clúster de host está protegido con configuraciones uniformes.
+
+
+.Pasos
+. Desde la página de inicio de vSphere Client, seleccione *Hosts y clústeres*.
+. En el panel de navegación izquierdo, seleccione los centros de datos que contienen los hosts.
+. Para montar almacenes de datos NFS/VMFS en un host o un clúster de hosts, haga clic con el botón derecho y seleccione * Herramientas de NetApp ONTAP * > * Montar almacenes de datos *.
+. Seleccione los almacenes de datos que desea montar y seleccione *Montar*.
+
+
+.¿Que sigue?
+Puede seguir el progreso en el panel de tareas recientes.

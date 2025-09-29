@@ -1,0 +1,94 @@
+---
+permalink: concepts/rbac-vcenter-use.html 
+sidebar: sidebar 
+keywords: vcenter, vcenter server, vcenter server rbac, use rbac 
+summary: Hay varios aspectos de las ONTAP tools for VMware vSphere 10 RBAC con vCenter Server que debe considerar antes de usarlo en un entorno de producción. 
+---
+= Utilice vCenter Server RBAC con ONTAP tools for VMware vSphere 10
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Hay varios aspectos de las ONTAP tools for VMware vSphere 10 RBAC con vCenter Server que debe considerar antes de usarlo en un entorno de producción.
+
+
+
+== Roles de vCenter y la cuenta de administrador
+
+Solo necesita definir y utilizar los roles personalizados de vCenter Server si desea limitar el acceso a los objetos de vSphere y las tareas administrativas asociadas.  Si no es necesario limitar el acceso, puede utilizar una cuenta de administrador en su lugar.  Cada cuenta de administrador se define con el rol de Administrador en el nivel superior de la jerarquía de objetos.  Esto proporciona acceso completo a los objetos de vSphere, incluidos aquellos agregados por las ONTAP tools for VMware vSphere 10.
+
+
+
+== Jerarquía de objetos de vSphere
+
+El inventario de objetos de vSphere está organizado en una jerarquía.  Por ejemplo, puede moverse hacia abajo en la jerarquía de la siguiente manera:
+
+`vCenter Server`--> `Datacenter` --> `Cluster` --> `ESXi host` --> `Virtual Machine`
+
+Todos los permisos se validan en la jerarquía de objetos de vSphere, excepto las operaciones del complemento VAAI, que se validan contra el host ESXi de destino.
+
+
+
+== Roles incluidos con las ONTAP tools for VMware vSphere 10
+
+Para simplificar el trabajo con vCenter Server RBAC, las ONTAP tools for VMware vSphere proporcionan roles predefinidos adaptados a diversas tareas de administración.
+
+
+NOTE: Puede crear nuevos roles personalizados si es necesario.  En este caso, debe clonar uno de los roles de herramientas ONTAP existentes y editarlo según sea necesario.  Después de realizar los cambios de configuración, los usuarios del cliente vSphere afectados deben cerrar sesión y volver a iniciarla para activar los cambios.
+
+Para ver las ONTAP tools for VMware vSphere , seleccione *Menú* en la parte superior de vSphere Client y haga clic en *Administración* y luego en *Roles* a la izquierda.  Hay tres roles predefinidos como se describe a continuación.
+
+.Herramientas NetApp ONTAP tools for VMware vSphere Administrator
+Proporciona todos los privilegios nativos de vCenter Server y los privilegios específicos de las herramientas ONTAP necesarios para realizar tareas de administrador de ONTAP tools for VMware vSphere .
+
+.ONTAP tools for VMware vSphere NetApp ONTAP para VMware vSphere de solo lectura
+Proporciona acceso de solo lectura a las herramientas ONTAP .  Estos usuarios no pueden realizar ninguna acción de las ONTAP tools for VMware vSphere que tenga acceso controlado.
+
+.Herramientas NetApp ONTAP tools for VMware vSphere Provision
+Proporciona algunos de los privilegios nativos de vCenter Server y privilegios específicos de las herramientas ONTAP que se requieren para aprovisionar almacenamiento.  Puede realizar las siguientes tareas:
+
+* Crear nuevos almacenes de datos
+* Administrar almacenes de datos
+
+
+
+
+== Objetos de vSphere y backends de almacenamiento ONTAP
+
+Los dos entornos RBAC trabajan juntos.  Al realizar una tarea en la interfaz del cliente vSphere, primero se verifican los roles de las herramientas ONTAP definidos para vCenter Server.  Si vSphere permite la operación, se examinan los privilegios del rol de ONTAP .  Este segundo paso se realiza en función del rol de ONTAP asignado al usuario cuando se creó y configuró el backend de almacenamiento.
+
+
+
+== Trabajar con vCenter Server RBAC
+
+Hay algunas cosas a tener en cuenta al trabajar con los privilegios y permisos de vCenter Server.
+
+
+
+=== Privilegios requeridos
+
+Para acceder a la interfaz de usuario de las ONTAP tools for VMware vSphere 10, debe tener el privilegio _View_ específico de las herramientas ONTAP .  Si inicia sesión en vSphere sin este privilegio y hace clic en el ícono de NetApp , las ONTAP tools for VMware vSphere muestran un mensaje de error y le impiden acceder a la interfaz de usuario.
+
+El nivel de asignación en la jerarquía de objetos de vSphere determina a qué partes de la interfaz de usuario puede acceder.  Al asignar el privilegio Ver al objeto raíz, podrá acceder a las ONTAP tools for VMware vSphere haciendo clic en el ícono de NetApp .
+
+En lugar de ello, puede asignar el privilegio de visualización a otro nivel de objeto vSphere inferior.  Sin embargo, esto limitará los menús de las ONTAP tools for VMware vSphere a los que puede acceder y utilizar.
+
+
+
+=== Asignación de permisos
+
+Debe utilizar los permisos de vCenter Server si desea limitar el acceso a los objetos y tareas de vSphere.  El lugar donde se asigna el permiso en la jerarquía de objetos de vSphere determina las tareas de las ONTAP tools for VMware vSphere 10 que los usuarios pueden realizar.
+
+
+TIP: A menos que necesite definir un acceso más restrictivo, generalmente es una buena práctica asignar permisos en el nivel del objeto raíz o de la carpeta raíz.
+
+Los permisos disponibles con las ONTAP tools for VMware vSphere 10 se aplican a objetos personalizados que no son vSphere, como los sistemas de almacenamiento.  Si es posible, debe asignar estos permisos a las ONTAP tools for VMware vSphere porque no hay ningún objeto de vSphere al que pueda asignarlos.  Por ejemplo, cualquier permiso que incluya un privilegio "Agregar/Modificar/Quitar sistemas de almacenamiento" de las ONTAP tools for VMware vSphere debe asignarse en el nivel del objeto raíz.
+
+Al definir un permiso en un nivel superior en la jerarquía de objetos, puede configurar el permiso para que se transmita y sea heredado por los objetos secundarios.  Si es necesario, puede asignar permisos adicionales a los objetos secundarios que anulen los permisos heredados del objeto principal.
+
+Puede modificar un permiso en cualquier momento.  Si cambia alguno de los privilegios dentro de un permiso, los usuarios asociados con el permiso deben cerrar sesión en vSphere y volver a iniciarla para habilitar el cambio.

@@ -1,0 +1,41 @@
+---
+permalink: deploy/ha-workflow.html 
+sidebar: sidebar 
+keywords: ONTAP tools,Storage Replication Adapter 
+summary: Comenzar a utilizar las ONTAP tools for VMware vSphere incluye algunos pasos. 
+---
+= Flujo de trabajo de implementación de alta disponibilidad (HA)
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Si utiliza almacenes de datos vVols , debe ampliar la implementación inicial de las herramientas ONTAP a una configuración de alta disponibilidad (HA) y habilitar los servicios del proveedor VASA.
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-1.png["1"]Ampliar la implementación
+[role="quick-margin-para"]
+Puede ampliar las ONTAP tools for VMware vSphere para aumentar la cantidad de nodos en la implementación y cambiar la configuración a una configuración de alta disponibilidad.
+
+[role="quick-margin-list"]
+* link:../manage/edit-appliance-settings.html["Cambiar las ONTAP tools for VMware vSphere"]
+
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-2.png["Dos"]Habilitar servicios
+[role="quick-margin-para"]
+Para configurar los almacenes de datos vVols , debe habilitar el servicio del proveedor VASA. Registre el proveedor VASA con vCenter y asegúrese de que sus políticas de almacenamiento cumplan con los requisitos de alta disponibilidad, incluidas las configuraciones de red y almacenamiento adecuadas.
+
+[role="quick-margin-para"]
+Habilite los servicios SRA para utilizar las herramientas ONTAP Adaptador de replicación de almacenamiento (SRA) para VMware Site Recovery Manager (SRM) o VMware Live Site Recovery (VLSR).
+
+[role="quick-margin-list"]
+* link:../manage/enable-services.html["Habilitar los servicios de proveedor VASA y SRA"]
+
+
+.image:https://raw.githubusercontent.com/NetAppDocs/common/main/media/number-3.png["Tres"]Actualizar los certificados
+[role="quick-margin-para"]
+Si utiliza almacenes de datos vVol con varias instancias de vCenter Server, actualice el certificado autofirmado a un certificado firmado por una autoridad de certificación (CA).
+
+[role="quick-margin-list"]
+* link:../manage/certificate-manage.html["Administrar certificados"]
+

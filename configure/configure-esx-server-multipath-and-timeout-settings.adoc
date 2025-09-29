@@ -1,0 +1,104 @@
+---
+permalink: configure/configure-esx-server-multipath-and-timeout-settings.html 
+sidebar: sidebar 
+keywords:  
+summary: Las ONTAP tools for VMware vSphere verifican y establecen las configuraciones de rutas múltiples del host ESXi y las configuraciones de tiempo de espera de HBA que funcionan mejor con los sistemas de almacenamiento NetApp . 
+---
+= Configurar los ajustes del host ESXi
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+La configuración de rutas múltiples y tiempos de espera del servidor ESXi garantiza una alta disponibilidad e integridad de los datos al permitir cambiar sin problemas a una ruta de almacenamiento de respaldo si falla una ruta principal.
+
+
+
+== Configurar las opciones de tiempo de espera y rutas múltiples del servidor ESXi
+
+Las ONTAP tools for VMware vSphere verifican y establecen las configuraciones de múltiples rutas del host ESXi y las configuraciones de tiempo de espera de HBA que funcionan mejor con los sistemas de almacenamiento NetApp .
+
+*Acerca de esta tarea*
+
+Dependiendo de su configuración y la carga del sistema, este proceso puede tardar mucho tiempo.  El progreso de la tarea se muestra en el panel Tareas recientes.
+
+.Pasos
+. Desde la página de inicio del cliente web VMware vSphere, seleccione *Hosts y clústeres*.
+. Haga clic con el botón derecho en un host y seleccione *Herramientas de NetApp ONTAP * > *Actualizar datos del host*.
+. En la página de accesos directos del cliente web VMware vSphere, seleccione *Herramientas de NetApp ONTAP * en la sección de complementos.
+. Vaya a la tarjeta *Cumplimiento de host ESXi* en la descripción general (panel de control) del complemento de ONTAP tools for VMware vSphere .
+. Seleccione el enlace *Aplicar configuración recomendada*.
+. En la ventana *Aplicar configuración de host recomendada*, seleccione los hosts que desea actualizar para cumplir con la configuración recomendada de NetApp y seleccione *Siguiente*.
++
+
+NOTE: Puede expandir el host ESXi para ver los valores actuales.
+
+. En la página de configuración, seleccione los valores recomendados según sea necesario.
+. En el panel de resumen, verifique los valores y seleccione *Finalizar*.  Puede seguir el progreso en el panel de tareas recientes.
+
+
+
+
+== Establecer valores de host ESXi
+
+Al utilizar las ONTAP tools for VMware vSphere, puede establecer tiempos de espera y otros valores en los hosts ESXi para garantizar el mejor rendimiento y una conmutación por error exitosa.  Los valores que establecen las ONTAP tools for VMware vSphere se basan en pruebas internas de NetApp .
+
+Puede establecer los siguientes valores en un host ESXi:
+
+
+
+=== Configuración del adaptador HBA/CNA
+
+Establece los siguientes parámetros a valores predeterminados:
+
+* Disco.QFullSampleSize
+* Disco.QFullThreshold
+* Tiempos de espera del HBA del Emulex FC
+* Tiempos de espera de HBA FC de QLogic
+
+
+
+
+=== Configuración de MPIO
+
+La configuración de MPIO define las rutas preferidas para los sistemas de almacenamiento de NetApp .  Determinan cuáles de las rutas disponibles están optimizadas (a diferencia de las rutas no optimizadas que atraviesan el cable de interconexión) y establecen la ruta preferida para una de esas rutas.
+
+En entornos de alto rendimiento, o cuando esté probando el rendimiento con un único almacén de datos LUN, considere cambiar la configuración de equilibrio de carga de la política de selección de ruta (PSP) round-robin (VMW_PSP_RR) de la configuración de IOPS predeterminada de 1000 a un valor de 1.
+
+
+NOTE: La configuración de MPIO no se aplica a los protocolos NVMe, NVMe/FC y NVMe/TCP.
+
+
+
+=== Configuración de NFS
+
+|===
+
+
+| Parámetro | Establezca este valor en... 
+
+
+| Tamaño del montón de Net.Tcpip | 32 
+
+
+| Net.TcpipHeapMax | 1024 MB 
+
+
+| NFS.Volúmenes máximos | 256 
+
+
+| NFS41.MaxVolumes | 256 
+
+
+| NFS.Profundidad máxima de cola | 128 o superior 
+
+
+| Fallas máximas de latidos del corazón de NFS | 10 
+
+
+| NFS.Frecuencia de latidos del corazón | 12 
+
+
+| Tiempo de espera del latido del corazón de NFS | 5 
+|===

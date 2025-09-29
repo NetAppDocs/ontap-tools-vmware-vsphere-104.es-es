@@ -1,0 +1,49 @@
+---
+permalink: manage/attach-detach-disk.html 
+sidebar: sidebar 
+keywords:  
+summary: Conecte un disco de datos a una máquina virtual para ampliar la capacidad de almacenamiento. 
+---
+= Conectar o desconectar un disco de datos de una máquina virtual
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+
+
+== Adjuntar un disco de datos a una máquina virtual
+
+Conecte un disco de datos a una máquina virtual para ampliar la capacidad de almacenamiento.
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Haga clic derecho en una máquina virtual en el inventario y seleccione *Editar configuración*.
+. En la pestaña *Hardware virtual*, seleccione *Disco duro existente*.
+. Seleccione la máquina virtual donde existe el disco.
+. Seleccione el disco que desea conectar y seleccione *Aceptar*
+
+
+.Resultado
+El disco duro aparece en la lista de dispositivos de hardware virtual.
+
+
+
+== Desconectar un disco de datos de la máquina virtual
+
+Puede desconectar un disco de datos conectado a una máquina virtual cuando ya no sea necesario.  Cuando se separa el disco de la máquina virtual, no se elimina automáticamente; permanece en el sistema de almacenamiento ONTAP .
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Haga clic derecho en una máquina virtual en el inventario y seleccione *Editar configuración*.
+. Mueva el puntero sobre el disco y seleccione *Quitar*.
++
+
+NOTE: El disco se elimina de la máquina virtual. Si otras máquinas virtuales comparten el disco, los archivos del disco no se eliminan.
+
+
+
+.Información relacionada
+https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-virtual-machine-administration-guide-7-0/configuring-virtual-machine-hardwarevm-admin/virtual-disk-configurationvm-admin/add-a-hard-disk-to-a-virtual-machinevm-admin/add-a-new-hard-disk-to-a-virtual-machinevm-admin.html["Agregar un nuevo disco duro a una máquina virtual"]
+
+https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-virtual-machine-administration-guide-7-0/configuring-virtual-machine-hardwarevm-admin/virtual-disk-configurationvm-admin/add-a-hard-disk-to-a-virtual-machinevm-admin/add-an-existing-hard-disk-to-a-virtual-machinevm-admin.html["Agregar un disco duro existente a una máquina virtual"]

@@ -1,0 +1,35 @@
+---
+permalink: manage/storage-view-datastore.html 
+sidebar: sidebar 
+keywords: Remove vVol datastore 
+summary: La vista de almacenamiento de ONTAP en la pestaña de configuración de las ONTAP tools for VMware vSphere proporciona datos relacionados con el almacén de datos y su volumen. 
+---
+= Vistas de almacenamiento de ONTAP para almacenes de datos
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Las ONTAP tools for VMware vSphere muestran la vista lateral del almacenamiento ONTAP de los almacenes de datos y sus volúmenes en la pestaña de configuración.
+
+.Pasos
+. Desde el cliente vSphere, navegue hasta el almacén de datos.
+. Seleccione la pestaña *Configurar* en el panel derecho.
+. Seleccione * Herramientas NetApp ONTAP * > * Almacenamiento ONTAP *.  Dependiendo del tipo de almacén de datos, la vista cambia.  Consulte la siguiente tabla para obtener información:
+
+
+|===
+
+
+| *Tipo de almacén de datos* | *Información disponible* 
+
+
+| almacén de datos NFS | La página *Detalles de almacenamiento* contiene información de backends de almacenamiento, agregados y volumen.  La página *Detalles de NFS* contiene datos relacionados con el almacén de datos NFS. 
+
+
+| Almacenes de datos VMFS | La página *Detalles de almacenamiento* contiene detalles de backend de almacenamiento, agregado, volumen y zona de disponibilidad de almacenamiento (SAZ).  La página *Detalles de la unidad de almacenamiento* contiene detalles de la unidad de almacenamiento. 
+
+
+| almacenes de datos vVols | Enumera todos los volúmenes.  Puede expandir o eliminar almacenamiento desde el panel de almacenamiento de ONTAP .  Esta vista no es compatible con el almacén de datos vVols basado en el sistema ASA r2. 
+|===

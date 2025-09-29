@@ -1,0 +1,47 @@
+---
+permalink: protect/fan-out-protection.html 
+sidebar: sidebar 
+keywords:  
+summary: En una protección de abanico, el grupo de consistencia está doblemente protegido con una relación sincrónica en el primer clúster ONTAP de destino y con una relación asincrónica en el segundo clúster ONTAP de destino. 
+---
+= Protección en abanico
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+En una protección de abanico, el grupo de consistencia está doblemente protegido con una relación sincrónica en el primer clúster ONTAP de destino y con una relación asincrónica en el segundo clúster ONTAP de destino. Los flujos de trabajo de creación, edición y eliminación de protección de sincronización activa de SnapMirror mantienen la protección sincrónica.  Los flujos de trabajo de conmutación por error y reprotección de SRM mantienen la protección asincrónica.
+
+Para establecer la protección de distribución, es necesario conectar tres clústeres de sitios y SVM.
+
+Ejemplo:
+
+|===
+
+
+| Si | entonces 
+
+
+ a| 
+* El grupo de consistencia de origen está en el clúster c1 y SVM svm1
+* El primer grupo de consistencia de destino está en el clúster c2 y SVM svm2 y
+* El segundo grupo de consistencia de destino está en el clúster c3 y SVM svm3
+
+ a| 
+* El peering de clúster en el clúster ONTAP de origen será (C1, C2) y (C1, C3).
+* El peering de clúster en el primer clúster ONTAP de destino será (C2, C1) y (C2, C3) y
+* Los clústeres que se emparejan en el segundo clúster ONTAP de destino serán (C3, C1) y (C3, C2).
+* El peering SVM en el SVM de origen será (svm1, svm2) y (svm1, svm3).
+* El peering SVM en el primer SVM de destino será (svm2, svm1) y (svm2, svm3) y
+* El peering SVM en el segundo destino svm será (svm3, svm1) y (svm3, svm2).
+
+
+|===
+El siguiente diagrama muestra la configuración de protección de abanico:image:../media/fan-out-protection.png["Configuración de protección de abanico"] image:../media/fan-out-protection-relationship.png["Relación de protección en abanico"]
+
+*Pasos*
+
+. Crear un nuevo almacén de datos de marcador de posición. Referirse https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery/site-recovery-manager/8-8/site-recovery-manager-administration-8-8/about-placeholder-virtual-machines/configure-a-placeholder-datastore.html["Seleccionar un almacén de datos de marcador de posición"]
+. Agregar almacén de datos a la protección del clúster de hostlink:../manage/edit-hostcluster-protection.html["Modificar el clúster de host protegido"] .  Debe agregar tipos de políticas asincrónicas y sincrónicas.
+

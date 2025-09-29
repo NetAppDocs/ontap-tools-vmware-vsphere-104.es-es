@@ -1,0 +1,42 @@
+---
+permalink: manage/collect-the-log-files.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Puede recopilar archivos de registro para las ONTAP tools for VMware vSphere desde las opciones disponibles en la interfaz gráfica de usuario (GUI) de las ONTAP tools for VMware vSphere .  Es posible que el soporte técnico le solicite que recopile los archivos de registro para ayudar a solucionar un problema.' 
+---
+= Recopilar los archivos de registro
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede recopilar archivos de registro de las ONTAP tools for VMware vSphere desde las opciones disponibles en la interfaz de usuario del Administrador de herramientas ONTAP .  Es posible que el soporte técnico le solicite que recopile los archivos de registro para ayudar a solucionar un problema.
+
+
+NOTE: La generación de registros desde el Administrador de herramientas de ONTAP incluye todos los registros de todas las instancias de vCenter Server.  La generación de registros desde la interfaz de usuario del cliente vCenter está limitada al servidor vCenter seleccionado.
+
+.Pasos
+. Inicie el Administrador de herramientas de ONTAP desde un navegador web: `\https://<ONTAPtoolsIP>:8443/virtualization/ui/`
+. Inicie sesión con las credenciales de administrador de las ONTAP tools for VMware vSphere que proporcionó durante la implementación.
+. Seleccione *Paquetes de registro* en la barra lateral.
++
+Esta operación puede tardar varios minutos.
+
+. Seleccione *Generar* para generar los archivos de registro.
+. Ingrese la etiqueta para el paquete de registro y seleccione *Generar*.
++
+Descargue el archivo tar.gz y envíelo al soporte técnico.
+
+
+
+Siga los pasos a continuación para generar un paquete de registros mediante la interfaz de usuario del cliente vCenter:
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Desde la página de inicio de vSphere Client, vaya a *Soporte* > *Paquete de registros* > *Generar*.
+. Proporcione la etiqueta del paquete de registro y genere el paquete. Podrá ver la opción de descarga cuando se generen los archivos. La descarga puede tardar un poco.
+
+
+
+NOTE: El paquete de registros generado reemplaza el paquete de registros que se generó en los últimos 3 días o 72 horas.

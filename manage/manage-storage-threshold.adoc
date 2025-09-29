@@ -1,0 +1,21 @@
+---
+permalink: manage/manage-storage-threshold.html 
+sidebar: sidebar 
+keywords:  
+summary: Puede establecer el umbral para recibir notificaciones en vCenter Server cuando el volumen y la capacidad agregada alcanzan determinados niveles. 
+---
+= Administrar los umbrales de almacenamiento
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede establecer el umbral para recibir notificaciones en vCenter Server cuando el volumen y la capacidad agregada alcanzan determinados niveles.
+
+.Pasos:
+. Inicie sesión en el cliente vSphere.
+. En la página de accesos directos, seleccione *Herramientas de NetApp ONTAP * en la sección de complementos.
+. En el panel izquierdo de las herramientas de ONTAP , navegue a *Configuración* > *Configuración de umbral* > *Editar*.
+. En la ventana *Editar umbral*, proporcione los valores deseados en los campos *Casi lleno* y *Completo* y seleccione *Guardar*.  Puede restablecer los números a los valores recomendados, que son 80 para casi lleno y 90 para lleno.
+

@@ -1,0 +1,62 @@
+---
+permalink: protect/configure-array-manager.html 
+sidebar: sidebar 
+keywords:  
+summary: 'Puede configurar el Adaptador de replicación de almacenamiento (SRA) mediante el asistente del Administrador de matrices de VMware Live Site Recovery para habilitar interacciones entre VMware Live Site Recovery y las máquinas virtuales de almacenamiento (SVM).' 
+---
+= Configurar SRA mediante el administrador de matrices
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede configurar el Adaptador de replicación de almacenamiento (SRA) mediante el asistente del Administrador de matrices de VMware Live Site Recovery para habilitar interacciones entre VMware Live Site Recovery y las máquinas virtuales de almacenamiento (SVM).
+
+.Antes de empezar
+* Debería haber emparejado los sitios protegidos y los sitios de recuperación en VMware Live Site Recovery.
+* Debes haber configurado tu almacenamiento incorporado antes de configurar el administrador de matrices.
+* Debería haber configurado y replicado las relaciones de SnapMirror entre los sitios protegidos y los sitios de recuperación.
+* Debería haber habilitado los LIF de administración de SVM para habilitar la multitenencia.
+
+
+SRA admite la gestión a nivel de clúster y la gestión a nivel de SVM.  Si agrega almacenamiento a nivel de clúster, podrá descubrir y realizar operaciones en todas las SVM del clúster.  Si agrega almacenamiento a un nivel de SVM, solo podrá administrar esa SVM específica.
+
+.Pasos
+. En VMware Live Site Recovery, seleccione *Administradores de matrices* > *Agregar administrador de matrices*.
+. Ingrese la siguiente información para describir la matriz en VMware Live Site Recovery:
++
+.. Introduzca un nombre para identificar al administrador de la matriz en el campo *Nombre para mostrar*.
+.. En el campo *Tipo de SRA*, seleccione * Adaptador de replicación de almacenamiento de NetApp para ONTAP*.
+.. Ingrese la información para conectarse al clúster o al SVM:
++
+*** Si se conecta a un clúster, debe ingresar al LIF de administración del clúster.
+*** Si se conecta directamente a una SVM, debe ingresar la dirección IP del LIF de administración de SVM.
++
+
+NOTE: Al configurar el administrador de matrices, debe utilizar la misma conexión (dirección IP) para el sistema de almacenamiento que se utilizó para incorporar el sistema de almacenamiento en las ONTAP tools for VMware vSphere.  Por ejemplo, si la configuración del administrador de matrices tiene alcance SVM, entonces el almacenamiento bajo las ONTAP tools for VMware vSphere se debe agregar en el nivel SVM.
+
+
+
+.. Si se conecta a un clúster, especifique el nombre de SVM en el campo *nombre de SVM* o déjelo en blanco para administrar todos los SVM en el clúster.
+.. Introduzca los volúmenes que se descubrirán en el campo *Lista de inclusión de volúmenes*.
++
+Puede ingresar el volumen de origen en el sitio protegido y el volumen de destino replicado en el sitio de recuperación.
+
++
+Por ejemplo, si desea descubrir el volumen src_vol1 que está en una relación SnapMirror con el volumen dst_vol1, debe especificar src_vol1 en el campo del sitio protegido y dst_vol1 en el campo del sitio de recuperación.
+
+.. *(Opcional)* Ingrese los volúmenes que se excluirán del descubrimiento en el campo *Lista de exclusión de volúmenes*.
++
+Puede ingresar el volumen de origen en el sitio protegido y el volumen de destino replicado en el sitio de recuperación.
+
++
+Por ejemplo, si desea excluir el volumen _src_vol1_ que está en una relación SnapMirror con el volumen _dst_vol1_, debe especificar _src_vol1_ en el campo del sitio protegido y _dst_vol1_ en el campo del sitio de recuperación.
+
+
+
+. Seleccione *Siguiente*.
+. Verifique que la matriz se descubra y se muestre en la parte inferior de la ventana Agregar administrador de matrices y seleccione *Finalizar*.
+
+
+Puede seguir los mismos pasos para el sitio de recuperación utilizando las direcciones IP y credenciales de administración de SVM adecuadas.  En la pantalla Habilitar pares de matrices del asistente Agregar administrador de matrices, debe verificar que esté seleccionado el par de matrices correcto y que se muestre como listo para ser habilitado.

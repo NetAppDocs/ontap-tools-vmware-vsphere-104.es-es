@@ -1,0 +1,244 @@
+---
+permalink: manage/igroup-workflow.html 
+sidebar: sidebar 
+keywords:  
+summary:  
+---
+= Comprenda los igroups y las políticas de exportación en las ONTAP tools for VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Los grupos de iniciadores (igroups) son tablas de nombres de puertos mundiales (WWPN) de host de protocolo FC o nombres de nodos calificados de host iSCSI.  Puede definir igroups y asignarlos a LUN para controlar qué iniciadores tienen acceso a los LUN.
+
+En las ONTAP tools for VMware vSphere 9.x, los igroups se creaban y administraban en una estructura plana, donde cada almacén de datos en vCenter estaba asociado con un solo igroup. Este modelo limitó la flexibilidad y la reutilización de igroups en múltiples almacenes de datos. Las ONTAP tools for VMware vSphere 10.x introducen igroups anidados, donde cada almacén de datos en vCenter está asociado con un igroup principal, mientras que cada host está vinculado a un igroup secundario bajo ese principal. Puede definir igroups principales personalizados con nombres definidos por el usuario para reutilizarlos en múltiples almacenes de datos, lo que permite una administración más flexible e interconectada de los igroups. Comprender el flujo de trabajo de igroup es esencial para administrar LUN y almacenes de datos de manera eficaz en las ONTAP tools for VMware vSphere. Los diferentes flujos de trabajo generan distintas configuraciones de igroup, como se muestra en los siguientes ejemplos:
+
+
+NOTE: Los nombres mencionados son sólo para fines ilustrativos y no se refieren a nombres de igroups reales. Los igroups administrados por herramientas ONTAP usan el prefijo “otv_”. A los igroups personalizados se les puede dar cualquier nombre.
+
+|===
+
+
+| Término | Descripción 
+
+
+| DS<número> | Almacén de datos 
+
+
+| iqn<número> | Iniciador IQN 
+
+
+| host<número> | Anfitrión MoRef 
+
+
+| lun<número> | Identificación de LUN 
+
+
+| <DSName>Igroup<número> | igroup padre predeterminado (administrado por herramientas ONTAP ) 
+
+
+| <Host-Moref>Igroup<número> | igroup infantil 
+
+
+| CustomIgroup<número> | igroup padre personalizado definido por el usuario 
+
+
+| ClassicIgroup<número> | Igroup utilizado en las versiones 9.x de las herramientas ONTAP . 
+|===
+.Ejemplo 1:
+Crear un almacén de datos en un único host con un iniciador
+
+*Flujo de trabajo*: [Crear] DS1 (lun1): host1 (iqn1)
+
+*Resultado*:
+
+* Grupo DS1I:
++
+** host1Igroup → (iqn1: lun1)
+
+
+
+
+Se crea un igroup padre DS1Igroup en los sistemas ONTAP para DS1, con un igroup hijo host1Igroup asignado a lun1.  Los LUN siempre se asignan a igroups secundarios.
+
+.Ejemplo 2:
+Montar el almacén de datos existente en un host adicional
+
+*Flujo de trabajo*: [Montaje] DS1 (lun1): host2 (iqn2)
+
+*Resultado*:
+
+* Grupo DS1I:
++
+** host1Igroup → (iqn1: lun1)
+** host2Igroup → (iqn2: lun1)
+
+
+
+
+Se crea un igroup secundario host2Igroup y se agrega al igroup principal existente DS1Igroup.
+
+.Ejemplo 3:
+Desmontar un almacén de datos de un host
+
+*Flujo de trabajo*: [Desmontar] DS1 (lun1): host1 (iqn1)
+
+*Resultado*:
+
+* Grupo DS1I:
++
+** host2Igroup → (iqn2: lun1)
+
+
+
+
+El host1Igroup se elimina de la jerarquía. Los igroups infantiles no se eliminan explícitamente. La eliminación se produce en estas dos condiciones:
+
+* Si no se asigna ningún LUN, el sistema ONTAP elimina el igroup secundario.
+* Un trabajo de limpieza programado elimina los igroups secundarios colgantes sin asignaciones de LUN.  Estos escenarios solo se aplican a los igroups administrados por herramientas ONTAP , no a los creados de forma personalizada.
+
+
+.Ejemplo 4:
+Eliminar almacén de datos
+
+*Flujo de trabajo*: [Eliminar] DS1 (lun1): host2 (iqn2)
+
+*Resultado*:
+
+* Grupo DS1I:
++
+** host2Igroup → (iqn2: lun1)
+
+
+
+
+Los igroups padre e hijo se eliminan si otro almacén de datos no reutiliza el igroup padre. Los igroups infantiles nunca se eliminan explícitamente
+
+.Ejemplo 5:
+Crear múltiples almacenes de datos bajo un igroup principal personalizado
+
+*Flujo de trabajo*:
+
+* [Crear] DS2 (lun2): host1 (iqn1), host2 (iqn2)
+* [Crear] DS3 (lun3): host1 (iqn1), host3 (iqn3)
+
+
+*Resultado*:
+
+* Grupo personalizado1:
++
+** host1Igrupo → (iqn1: lun2, lun3)
+** host2Igroup → (iqn2: lun2)
+** host3Igroup → (iqn3: lun3)
+
+
+
+
+CustomIgroup1 se crea para DS2 y se reutiliza para DS3.  Los igroups secundarios se crean o actualizan bajo el padre compartido, y cada igroup secundario se asigna a sus LUN relevantes.
+
+.Ejemplo 6:
+Eliminar un almacén de datos bajo un igroup principal personalizado.
+
+*Flujo de trabajo*: [Eliminar] DS2 (lun2): host1 (iqn1), host2 (iqn2)
+
+*Resultado*:
+
+* Grupo personalizado1:
++
+** host1Igroup → (iqn1: lun3)
+** host3Igroup → (iqn3: lun3)
+
+
+* Aunque CustomIgroup1 no se reutiliza, no se elimina.
+* Si no se asignan LUN, el sistema ONTAP elimina host2Igroup.
+* El igroup de host1 no se elimina porque está asignado a lun3 de DS3. Los igroups personalizados nunca se eliminan, independientemente del estado de reutilización.
+
+
+.Ejemplo 7:
+Expandir el almacén de datos vVols (Agregar volumen)
+
+*Flujo de trabajo*:
+
+Antes de la expansión:
+
+[Expandir] DS4 (lun4): host4 (iqn4)
+
+* Grupo DS4I: grupo host4I → (iqn4: lun4)
+
+
+Después de la expansión:
+
+[Expandir] DS4 (lun4, lun5): host4 (iqn4)
+
+* DS4Igroup: host4Igroup → (iqn4: lun4, lun5)
+
+
+Se crea un nuevo LUN y se asigna al igroup secundario existente host4Igroup.
+
+.Ejemplo 8:
+Reducir el almacén de datos de vVols (eliminar volumen)
+
+*Flujo de trabajo*:
+
+Antes de encogerse:
+
+[Reducir] DS4 (lun4, lun5): host4 (iqn4)
+
+* DS4Igroup: host4Igroup → (iqn4: lun4, lun5)
+
+
+Después de encoger:
+
+[Reducir] DS4 (lun4): host4 (iqn4)
+
+* Grupo DS4I: grupo host4I → (iqn4: lun4)
+
+
+El LUN especificado (lun5) no está asignado al igroup secundario.  El igroup permanece activo mientras tenga al menos un LUN asignado.
+
+.Ejemplo 9:
+Migración de las herramientas ONTAP 9 a 10 (normalización de igroups)
+
+*Flujo de trabajo*
+
+Las herramientas ONTAP para las versiones VMware vSPhere 9.x no admiten igroups jerárquicos. Durante la migración a versiones 10.3 o superiores, los igroups deben normalizarse en la estructura jerárquica.
+
+Antes de la migración:
+
+[Migración] DS6 (lun6, lun7): host6 (iqn6), host7 (iqn7) → ClassicIgroup1 (iqn6 e iqn7: lun6, lun7)
+
+La lógica de las herramientas ONTAP 9.x permite múltiples iniciadores por igroup sin imponer una asignación de host uno a uno.
+
+Después de la migración:
+
+[Migración] DS6 (lun6, lun7): host6 (iqn6), host7 (iqn7) → ClassicIgroup1: otv_ClassicIgroup1 (iqn6 e iqn7: lun6, lun7)
+
+Durante la migración:
+
+* Se crea un nuevo igroup padre (ClassicIgroup1).
+* El igroup original cambia de nombre con el prefijo otv_ y se convierte en un igroup secundario.
+
+
+Esto garantiza el cumplimiento del modelo jerárquico.
+
+.Temas relacionados
+https://docs.netapp.com/us-en/ontap/san-admin/igroups-concept.html["Acerca de igroups"]
+
+
+
+== Políticas de exportación
+
+Las políticas de exportación controlan el acceso a los almacenes de datos NFS en las ONTAP tools for VMware vSphere.  Definen qué clientes pueden acceder a los almacenes de datos y qué permisos tienen.  Las políticas de exportación se crean y administran en sistemas ONTAP y pueden asociarse con almacenes de datos NFS para aplicar el control de acceso.  Cada política de exportación consta de reglas que especifican los clientes (direcciones IP o subredes) a los que se les permite el acceso y los permisos otorgados (solo lectura o lectura y escritura).
+
+Cuando crea un almacén de datos NFS en las ONTAP tools for VMware vSphere, puede seleccionar una política de exportación existente o crear una nueva.  Luego, la política de exportación se aplica al almacén de datos, garantizando que solo los clientes autorizados puedan acceder a él.
+
+Cuando se monta un almacén de datos NFS en un nuevo host ESXi, las ONTAP tools for VMware vSphere agregan la dirección IP del host a la política de exportación existente asociada con el almacén de datos.  Esto permite que el nuevo host acceda al almacén de datos sin crear una nueva política de exportación.
+
+Cuando elimina o desmonta un almacén de datos NFS de un host ESXi, las ONTAP tools for VMware vSphere eliminan la dirección IP del host de la política de exportación.  Si ningún otro host utiliza esa política de exportación, se eliminará.  Cuando elimina un almacén de datos NFS, las ONTAP tools for VMware vSphere eliminan la política de exportación asociada con ese almacén de datos si no la reutilizan otros almacenes de datos.  Si se reutiliza la política de exportación, conserva la dirección IP del host y permanece sin cambios.  Cuando se eliminan los almacenes de datos, la política de exportación anula la asignación de la dirección IP del host y asigna una política de exportación predeterminada, de modo que los sistemas ONTAP puedan acceder a ellos si es necesario.
+
+La asignación de la política de exportación varía según se reutilice en diferentes almacenes de datos. Al reutilizar la política de exportación, se puede añadir la nueva dirección IP del host. Al eliminar o desmontar un almacén de datos que utiliza una política de exportación compartida, esta no se eliminará. Permanecerá sin cambios y la dirección IP del host no se eliminará, ya que se comparte con los demás almacenes de datos. No se recomienda reutilizar las políticas de exportación, ya que puede causar problemas de acceso y latencia.
+
+.Temas relacionados
+https://docs.netapp.com/us-en/ontap/nfs-config/create-export-policy-task.html["Crear una política de exportación"]

@@ -1,0 +1,33 @@
+---
+permalink: configure/registration-process.html 
+sidebar: sidebar 
+keywords:  
+summary: Puede registrar el proveedor VASA con una instancia de vCenter Server mediante la interfaz del complemento remoto de ONTAP tools for VMware vSphere . 
+---
+= Registrar el proveedor VASA con una instancia de vCenter Server
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Puede registrar el proveedor VASA con una instancia de vCenter Server utilizando ONTAP tools for VMware vSphere.  La sección de configuración del proveedor VASA muestra el estado de registro del proveedor VASA para el vCenter Server seleccionado.  En una implementación de varios vCenter, asegúrese de tener certificados CA personalizados para cada instancia de vCenter Server.
+
+.Pasos
+. Inicie sesión en el cliente vSphere.
+. Seleccione *Accesos directos* > *Herramientas de NetApp ONTAP * en la sección de complementos.
+. Seleccione *Configuración* > *Configuración del proveedor VASA*. El estado de registro del proveedor VASA se mostrará como no registrado.
+. Seleccione el botón *Registrarse* para registrar el proveedor VASA.
+. Ingrese un nombre y credenciales para el proveedor de VASA. El nombre de usuario solo puede contener letras, números y guiones bajos. La longitud de la contraseña debe estar entre 8 y 256 caracteres.
+. Seleccione *Registrarse*.
+. Después de un registro exitoso y una actualización de página, se muestran el estado, el nombre y la versión del proveedor VASA registrado.  Después del registro, se activa la acción de cancelar el registro.
+
+
+.¿Qué sigue?
+Verifique que el proveedor VASA incorporado aparezca en la lista de proveedores VASA del cliente vCenter:
+
+.Pasos
+. Navegue a la instancia de vCenter Server.
+. Inicie sesión con las credenciales de administrador.
+. Seleccione *Proveedores de almacenamiento* > *Configurar*.  Verifique que el proveedor VASA incorporado aparezca correctamente en la lista.
+
