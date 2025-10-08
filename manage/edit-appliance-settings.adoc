@@ -48,7 +48,7 @@ NOTE: Una vez habilitada la configuración de HA, no es posible volver a una con
 . En la sección *Configuración de HA* de la ventana *Editar configuración del dispositivo*, puede ingresar los detalles de los nodos 2 y 3.  Las ONTAP tools for VMware vSphere admiten tres nodos en la configuración de alta disponibilidad.
 +
 
-NOTE: La mayoría de las opciones de entrada están rellenas previamente con detalles de la red del Nodo 1 para facilitar el flujo de trabajo. Sin embargo, puede editar los datos de entrada antes de navegar a la página final del asistente. Puede ingresar detalles de la dirección IPv6 para los otros dos nodos solo cuando la dirección IPv6 esté habilitada en el primer nodo.
+NOTE: La mayoría de las opciones de entrada están rellenas previamente con detalles de la red del Nodo 1 para facilitar el flujo de trabajo. Sin embargo, puede editar los datos de entrada antes de navegar a la página final del asistente. Puede ingresar detalles de la dirección IPv6 para los otros dos nodos solo cuando la dirección IPv6 esté habilitada en el nodo de administración de herramientas ONTAP .
 
 +
 Asegúrese de que un host ESXi contenga solo una máquina virtual de herramientas ONTAP .  Las entradas se validan cada vez que se pasa a la siguiente ventana.

@@ -20,7 +20,7 @@ NOTA:
 
 
 .Antes de empezar
-Para una actualización que no sea de alta disponibilidad, apague la máquina virtual (VM) de herramientas ONTAP y, para una actualización de alta disponibilidad, apague el primer nodo antes de realizar los siguientes cambios en la configuración de la máquina virtual (VM).
+Para una actualización que no sea de alta disponibilidad, apague la máquina virtual (VM) de herramientas de ONTAP y, para una actualización de alta disponibilidad, apague el nodo de administración de herramientas de ONTAP antes de realizar los siguientes cambios en la configuración de la máquina virtual (VM).
 
 Si actualiza desde las ONTAP tools for VMware vSphere 10.2 o 10.3, debe completar los siguientes pasos antes de continuar con la actualización: * Agregue 100 GB de disco duro adicionales a cada nodo, ya que los datos de servicio se almacenan localmente en la máquina virtual. * Cambie la CPU y la memoria de la máquina virtual apagada según la versión de su implementación. Habilite el complemento activo para CPU y RAM.
 
@@ -123,7 +123,7 @@ Después de actualizar a las ONTAP tools for VMware vSphere 10.4, puede:
 * Deshabilitar los servicios desde la interfaz de usuario del administrador
 * Pasar de una configuración sin alta disponibilidad a una configuración con alta disponibilidad
 * Amplíe una configuración pequeña sin alta disponibilidad a una configuración mediana sin alta disponibilidad o a una configuración mediana o grande con alta disponibilidad.
-* En caso de una actualización que no sea de alta disponibilidad, reinicie la máquina virtual de herramientas ONTAP para reflejar los cambios.  En caso de una actualización de HA, reinicie el primer nodo para reflejar los cambios en el nodo.
+* En caso de una actualización que no sea de alta disponibilidad, reinicie la máquina virtual de herramientas ONTAP para reflejar los cambios. En caso de una actualización de HA, reinicie el nodo de administración de herramientas de ONTAP para reflejar los cambios en el nodo.
 
 
 .¿Qué sigue?

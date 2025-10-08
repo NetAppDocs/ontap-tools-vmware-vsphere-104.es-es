@@ -27,3 +27,6 @@ Las ONTAP tools for VMware vSphere brindan la opción de habilitar la capacidad 
 . Cargue el instalador _.tar.gz_ del complemento SRA en VMware Live Site Recovery.
 . Vuelva a escanear los adaptadores para verificar que los detalles estén actualizados en la página Adaptadores de replicación de almacenamiento de VMware Live Site Recovery.
 
+
+.Información relacionada
+https://docs.netapp.com/us-en/netapp-solutions-virtualization/vmware/vmw-nfs-vlsr.html#scenario-overview["Configurar la recuperación ante desastres para almacenes de datos NFS mediante VMware Site Recovery Manager"]

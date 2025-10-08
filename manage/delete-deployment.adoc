@@ -14,7 +14,7 @@ summary: Tras eliminar las ONTAP tools for VMware vSphere , debe limpiar los Fle
 Cuando se utiliza un clúster ONTAP dedicado para herramientas ONTAP para la implementación de VMware, se crean muchos volúmenes FlexVol sin usar.  Después de eliminar las ONTAP tools for VMware vSphere, debe eliminar los volúmenes FlexVol para evitar posibles impactos en el rendimiento.
 
 .Pasos
-. Determine las ONTAP tools for VMware vSphere desde la primera máquina virtual del nodo.
+. Determine el tipo de implementación de ONTAP tools for VMware vSphere desde la máquina virtual del nodo de administración de herramientas ONTAP .
 +
 _cat /opt/netapp/meta/ansible_vars.yaml | grep -i protocolo_
 

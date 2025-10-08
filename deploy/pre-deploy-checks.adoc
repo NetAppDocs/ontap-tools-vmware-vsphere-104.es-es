@@ -60,13 +60,13 @@ Utilice la siguiente hoja de trabajo para recopilar la información necesaria pa
 | Requisito | Tu valor 
 
 
-| Dirección IP para la aplicación de herramientas ONTAP . Esta es la dirección IP para acceder a la interfaz web de las herramientas ONTAP |  
+| Dirección IP para la aplicación de herramientas ONTAP . Esta es la dirección IP para acceder a la interfaz web de las herramientas ONTAP (balanceador de carga) |  
 
 
-| Dirección IP virtual de herramientas ONTAP para comunicación interna. Esta dirección IP se utiliza para la comunicación interna en una configuración con múltiples instancias de herramientas ONTAP . Esta dirección IP no debe ser la misma que la dirección IP de la aplicación de herramientas ONTAP . |  
+| Dirección IP virtual de herramientas ONTAP para comunicación interna. Esta dirección IP se utiliza para la comunicación interna en una configuración con múltiples instancias de herramientas ONTAP . Esta dirección IP no debe ser la misma que la dirección IP de la aplicación de herramientas ONTAP (el plano de control de Kubernetes). |  
 
 
-| Nombre de host DNS para el primer nodo |  
+| Nombre de host DNS para el nodo de administración de herramientas ONTAP |  
 
 
 | Servidor DNS primario |  
@@ -78,7 +78,7 @@ Utilice la siguiente hoja de trabajo para recopilar la información necesaria pa
 | Dominio de búsqueda DNS |  
 
 
-| Dirección IPv4 para el primer nodo. Es una dirección IPv4 única para la interfaz de administración de nodos en la red de administración. |  
+| Dirección IPv4 para el nodo de administración de herramientas ONTAP . Es una dirección IPv4 única para la interfaz de administración de nodos en la red de administración. |  
 
 
 | Máscara de subred para la dirección IPv4 |  
