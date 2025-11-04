@@ -108,7 +108,7 @@ Se creará un nuevo disco duro.  El aprovisionador de almacenamiento dinámico u
 . Seleccione el archivo ISO y seleccione *Aceptar*.  Seleccione la casilla de verificación conectada en el campo *Unidad de CD/DVD*.image:../media/primaryvm-edit-settings.png["Editar configuración"]
 . Desde vCenter Server, abra una consola en las herramientas de ONTAP .
 . Inicie sesión como usuario de mantenimiento.
-. Introduzca *3* para seleccionar el menú de Configuración del Sistema.
+. Introduzca *2* para seleccionar el menú de Configuración del Sistema.
 . Introduzca *7* para seleccionar la opción de actualización.
 . Al actualizar, se realizan automáticamente las siguientes acciones:
 +

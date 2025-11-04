@@ -14,6 +14,8 @@ entries:
   url: "/manage/enable-services.html"
 - title: Cambiar las ONTAP tools for VMware vSphere
   url: "/manage/edit-appliance-settings.html"
+- title: Agregar nuevos hosts de VMware vSphere
+  url: "/manage/add-vsphere-host.html"
 - title: Administrar almacenes de datos
   entries:
   - title: Montar almacenes de datos NFS y VMFS

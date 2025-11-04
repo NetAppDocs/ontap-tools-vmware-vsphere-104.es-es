@@ -13,6 +13,9 @@ summary: Al montar un almacén de datos se proporciona acceso de almacenamiento 
 [role="lead"]
 Al montar un almacén de datos se proporciona acceso de almacenamiento a hosts adicionales.  Puede montar el almacén de datos en los hosts adicionales después de agregar los hosts a su entorno VMware.
 
+
+NOTE: Cuando agregue un nuevo host ESXi utilizando el https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/use-quickstart-to-add---host-to-a-cluster.html["Agregar un host ESX al flujo de trabajo de su clúster vSphere"] , espere a que finalice la detección de host programada antes de que aparezca en las herramientas de ONTAP .  Como alternativa, puede ejecutar el descubrimiento manualmente desde la pantalla de resumen de herramientas de NetApp ONTAP .
+
 .Acerca de esta tarea
 * Algunas acciones de clic derecho están deshabilitadas o no están disponibles según la versión del cliente vSphere y el tipo de almacén de datos seleccionado.
 +
@@ -32,3 +35,6 @@ Al montar un almacén de datos se proporciona acceso de almacenamiento a hosts a
 
 .¿Que sigue?
 Puede seguir el progreso en el panel de tareas recientes.
+
+.Tema relacionado
+link:../manage/add-vsphere-host.html["Agregar nuevos hosts de VMware vSphere"]

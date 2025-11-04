@@ -84,85 +84,74 @@ https://imt.netapp.com/matrix/imt.jsp?components=105475;&solution=1777&isHWU&src
 
 == Requisitos del puerto
 
-La siguiente tabla describe los puertos de red que utiliza NetApp y sus funciones. Asegúrese de que estos puertos estén abiertos y accesibles para facilitar el correcto funcionamiento y la comunicación dentro del sistema. Asegúrese de que las configuraciones de red necesarias permitan el tráfico en estos puertos para que los servicios asociados funcionen correctamente. Según sus políticas de seguridad, podría necesitar configurar firewalls u otros dispositivos de seguridad para permitir este tráfico dentro de su red.
+La siguiente tabla describe los puertos de red que utiliza NetApp y sus funciones. Existen tres tipos diferentes de puertos:
+
+* Puertos externos: Estos puertos son accesibles desde fuera del clúster o nodo de Kubernetes.  Permiten que los servicios se comuniquen con redes o usuarios externos, posibilitando la integración con sistemas fuera del entorno del clúster.
+* Puertos entre nodos: Estos puertos permiten la comunicación entre nodos dentro del clúster de Kubernetes.  Son necesarios para tareas de clúster como compartir datos y trabajar juntos.  Para implementaciones de un solo nodo, los puertos entre nodos se utilizan únicamente dentro del nodo y no necesitan acceso externo.  Los puertos entre nodos pueden aceptar tráfico procedente de fuera del clúster.  Bloquee el acceso a internet de los puertos entre nodos mediante reglas de firewall.
+* Puertos internos: Estos puertos se comunican dentro del clúster de Kubernetes utilizando direcciones ClusterIP.  No están expuestos externamente y no es necesario agregarlos a las reglas del firewall.
+
+
+
+NOTE: Asegúrese de que todos los nodos de herramientas ONTAP residan en la misma subred para mantener una comunicación ininterrumpida entre sí.
+
 
 |===
+| *Nombre del servicio/componente* | *Puerto* | *Protocolo* | *Tipo de puerto* | *Descripción* 
 
 
-| *Puerto* | *Protocolo* | *Descripción* 
+| ntv-gateway-sv (LB) | 443, 8443 | TCP | Externo | Puerto de paso para la comunicación entrante del servicio VASA Provider. El certificado autofirmado del proveedor VASA y el certificado CA personalizado están alojados en este puerto. 
 
 
-| 8143 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+| SSH | 22 | TCP | Externo | Secure Shell para el inicio de sesión en servidores remotos y la ejecución de comandos. 
 
 
-| 8043 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+| Servidor rke2 | 9345 | TCP | Internodo | API de supervisor RKE2 (Restringir a redes de confianza). 
 
 
-| 9060 | TCP | Conexiones HTTP/HTTPS para herramientas ONTAP . 
+| kube-apiserver | 6443 | TCP | Internodo | Puerto del servidor de la API de Kubernetes (Restringir a redes de confianza). 
 
 
-| 22 | TCP | Ansible utiliza este puerto SSH para la comunicación durante el aprovisionamiento del clúster.  Este puerto es necesario para funcionalidades como cambiar la contraseña del usuario de mantenimiento, los mensajes de estado y para actualizar valores en los tres nodos en caso de configuración de HA. 
+| rpcbind/asignador de puertos | 111 | TCP/UDP | Internodo | Se utiliza para la comunicación RPC entre servicios. 
 
 
-| 443 | TCP | Este es el puerto de paso para la comunicación entrante para el servicio del proveedor VASA.  El certificado autofirmado del proveedor VASA y el certificado CA personalizado están alojados en este puerto. 
+| núcleos de DNS (DNS) | 53 | TCP/UDP | Internodo | Servicio de Sistema de Nombres de Dominio (DNS) para la resolución de nombres dentro del clúster. 
 
 
-| 8443 | TCP | Este puerto aloja la documentación de la API a través de Swagger y la aplicación de interfaz de usuario Manager. 
+| NTP | 123 | UDP | Internodo | Protocolo de tiempo de red (NTP) para la sincronización horaria. 
 
 
-| 2379 | TCP | Este es el puerto predeterminado para solicitudes de clientes como obtener, colocar, eliminar o buscar claves en el almacén de valores de clave etcd. 
+| etcd | 2379, 2380, 2381 | TCP | Internodo | Almacén de clave-valor para datos de clúster. 
 
 
-| 2380 | TCP | Este es el puerto predeterminado para la comunicación de servidor a servidor para el clúster etcd utilizado para el algoritmo de consenso raft del que se basa etcd para la replicación y la consistencia de los datos. 
+| kube-vip | 2112 | TCP | Internodo | Puerto del servidor de la API de Kubernetes. 
 
 
-| 7472 | TCP/UDP | Este es el puerto del servicio de métricas de Prometheus. 
+| kubelet | 10248, 10250 | TCP | Internodo | componente de Kubernetes 
 
 
-| 7946 | TCP/UDP | Este puerto se utiliza para el descubrimiento de la red de contenedores de Docker. 
+| controlador kube | 10257 | TCP | Internodo | componente de Kubernetes 
 
 
-| 9083 | TCP | Este puerto es un puerto de servicio utilizado internamente para el servicio del proveedor VASA. 
+| controlador de la nube | 10258 | TCP | Internodo | componente de Kubernetes 
 
 
-| 1162 | UDP | Este es el puerto de paquetes de trampa SNMP. 
+| Programador de kube | 10259 | TCP | Internodo | componente de Kubernetes 
 
 
-| 6443 | TCP | Fuente: Nodos de agentes RKE2.  Destino: nodos del servidor REK2.  Descripción: API de Kubernetes 
+| kube-proxy | 10249, 10256 | TCP | Internodo | componente de Kubernetes 
 
 
-| 9345 | TCP | Fuente: Nodos de agentes RKE2.  Destino: nodos del servidor REK2.  Descripción: API de supervisor REK2 
+| calicó-nodo | 9091, 9099 | TCP | Internodo | Componente de red Calico. 
 
 
-| 8472 | TCP+UDP | Todos los nodos deben poder comunicarse con otros nodos a través del puerto UDP 8472 cuando se utiliza VXLAN de franela.  Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Canal CNI con VXLAN 
+| contenedor | 10010 | TCP | Internodo | Servicio de demonio de contenedor. 
 
 
-| 10250 | TCP | Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Métricas de Kubelet 
-
-
-| 30000-32767 | TCP | Fuente: todos los nodos RKE2.  Destino: todos los nodos REK2.  Descripción: Rango de puertos NodePort 
-
-
-| 123 | TCP | Ntpd utiliza este puerto para realizar la validación del servidor NTP. 
-
-
-| 137-139 | TCP/UDP | Paquetes compartidos SMB/Windows. 
-
-
-| 6789 | TCP | Monitor cefalométrico (MON) 
-
-
-| 3300 | TCP | Monitor cefalométrico (MON) 
-
-
-| 6800-7300 | TCP | Administradores Ceph, OSD y sistemas de archivos (MDS). 
-
-
-| 80 | TCP | Puerta de enlace Ceph RADOS (RGW) 
-
-
-| 9080 | TCP | Conexiones VP HTTP/HTTPS (solo desde 127.0.0.0/8 para IPv4 o ::1/128 para IPv6). 
+| VXLAN (Franela) | 8472 | UDP | Internodo | Red superpuesta para la comunicación entre pods. 
 |===
+
+NOTE: Para implementaciones de alta disponibilidad, asegúrese de que el puerto UDP 8472 esté abierto entre todos los nodos.  Este puerto permite la comunicación entre pods a través de nodos; bloquearlo interrumpirá la comunicación entre nodos.
+
 
 
 == Límites de configuración para implementar ONTAP tools for VMware vSphere

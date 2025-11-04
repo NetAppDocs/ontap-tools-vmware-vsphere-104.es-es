@@ -1,0 +1,27 @@
+---
+permalink: manage/add-vsphere-host.html 
+sidebar: sidebar 
+keywords:  
+summary: Agregar nuevos hosts de VMware vSphere a las ONTAP tools for VMware vSphere. 
+---
+= Agregar nuevos hosts de VMware vSphere
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Agregue nuevos hosts de VMware vSphere a las ONTAP tools for VMware vSphere para administrar y proteger los almacenes de datos en los hosts.
+
+.Pasos
+. Agregue un host a su clúster VMware vSphere siguiendo el flujo de trabajo de la página: https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/use-quickstart-to-add---host-to-a-cluster.html["Cómo agregar un host ESX a su clúster vSphere mediante el flujo de trabajo de inicio rápido"]
+. Después de agregar el host, vaya al menú principal de herramientas ONTAP y seleccione *Descubrir* en el panel de resumen.  Espere a que finalice el proceso de descubrimiento.  Como alternativa, puede esperar a que finalice la detección de host programada.
+
+
+.Resultado
+El nuevo host ahora es detectado y administrado por las ONTAP tools for VMware vSphere.  Puede proceder a administrar el almacén de datos en el nuevo host.
+
+.Temas relacionados
+* link:../manage/mount-a-vvols-datastore.html["Montar un almacén de datos vVols"]en nuevos hosts.
+* link:../manage/mount-datastores-on-host.html["Montar almacenes de datos NFS y VMFS"]en nuevos hosts.
+

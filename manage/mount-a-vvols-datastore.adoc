@@ -13,6 +13,9 @@ summary: 'Puede montar un almacén de datos VMware Virtual Volumes \(vVols\) en 
 [role="lead"]
 Puede montar un almacén de datos de VMware Virtual Volumes (vVols) en uno o más hosts adicionales para proporcionar acceso de almacenamiento a hosts adicionales.  Puede desmontar el almacén de datos vVols solo a través de las API.
 
+
+NOTE: Cuando agregue un nuevo host ESXi utilizando el https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/use-quickstart-to-add---host-to-a-cluster.html["Agregar un host ESX al flujo de trabajo de su clúster vSphere"] , espere a que finalice la detección de host programada antes de que aparezca en las herramientas de ONTAP .  Como alternativa, puede ejecutar el descubrimiento manualmente desde la pantalla de resumen de herramientas de NetApp ONTAP .
+
 .Pasos
 . Desde la página de inicio de vSphere Client, seleccione *Hosts y clústeres*.
 . En el panel de navegación, seleccione el centro de datos que contiene el almacén de datos.
@@ -21,3 +24,6 @@ Puede montar un almacén de datos de VMware Virtual Volumes (vVols) en uno o má
 
 
 Puede seguir el progreso en el panel de tareas recientes.
+
+.Tema relacionado
+link:../manage/add-vsphere-host.html["Agregar nuevos hosts de VMware vSphere"]
