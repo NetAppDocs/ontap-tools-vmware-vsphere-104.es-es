@@ -15,6 +15,7 @@ Hay varios aspectos de las ONTAP tools for VMware vSphere 10 RBAC con ONTAP que 
 
 
 
+[[overview-of-the-configuration-process]]
 == Descripción general del proceso de configuración
 
 Las ONTAP tools for VMware vSphere 10 incluyen soporte para crear un usuario ONTAP con un rol personalizado. Las definiciones están empaquetadas en un archivo JSON que puedes cargar en el clúster ONTAP . Puede crear el usuario y adaptar el rol a su entorno y necesidades de seguridad.
@@ -41,18 +42,21 @@ Como parte de la definición del rol, es necesario tomar varias decisiones admin
 
 
 
+[[configure-the-role-using-system-manager]]
 == Configurar el rol mediante el Administrador del sistema
 
 Después de comenzar a crear un nuevo usuario y rol con System Manager y haber cargado el archivo JSON, puede personalizar el rol según su entorno y sus necesidades.
 
 
 
+[[core-user-and-role-configuration]]
 === Configuración de usuarios y roles principales
 
 Las definiciones de RBAC están empaquetadas como varias capacidades de producto, incluidas combinaciones de VSC, VASA Provider y SRA.  Debe seleccionar el entorno o los entornos donde necesita compatibilidad con RBAC.  Por ejemplo, si desea que los roles admitan la capacidad de complemento remoto, seleccione VSC.  También deberás elegir el nombre de usuario y la contraseña asociada.
 
 
 
+[[privileges]]
 === Privileges
 
 Los privilegios de rol se organizan en cuatro conjuntos según el nivel de acceso necesario al almacenamiento de ONTAP .  Los privilegios en los que se basan los roles incluyen:
@@ -77,6 +81,7 @@ Esta función le permite destruir el almacenamiento.  También incluye todos los
 
 
 
+[[generate-the-user-with-a-role]]
 === Generar el usuario con un rol
 
 Después de haber seleccionado las opciones de configuración para su entorno, haga clic en *Agregar* y ONTAP creará el usuario y el rol.  El nombre del rol generado es una concatenación de los siguientes valores:

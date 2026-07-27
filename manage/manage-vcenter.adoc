@@ -15,6 +15,7 @@ Las instancias de vCenter Server son plataformas de administración central que 
 
 
 
+[[dissociate-storage-backends-with-the-vcenter-server-instance]]
 == Disociar los backends de almacenamiento con la instancia de vCenter Server
 
 La página de listado de vCenter Server muestra la cantidad de backends de almacenamiento asociados.  Cada instancia de vCenter Server tiene la opción de asociarse o desasociarse con un backend de almacenamiento.
@@ -29,6 +30,7 @@ La página de listado de vCenter Server muestra la cantidad de backends de almac
 
 
 
+[[modify-a-vcenter-server-instance]]
 == Modificar una instancia de vCenter Server
 
 Siga los pasos a continuación para modificar una instancia de vCenter Server.
@@ -42,6 +44,7 @@ Siga los pasos a continuación para modificar una instancia de vCenter Server.
 
 
 
+[[remove-a-vcenter-server-instance]]
 == Eliminar una instancia de vCenter Server
 
 Debes eliminar todos los backends de almacenamiento conectados al vCenter Server antes de eliminarlo.

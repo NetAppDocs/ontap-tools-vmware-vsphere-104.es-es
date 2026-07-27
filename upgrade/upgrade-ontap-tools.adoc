@@ -84,7 +84,7 @@ Ejecute los siguientes comandos para realizar una copia de seguridad de MongoDB:
 *Tome la instantánea de las ONTAP tools for VMware vSphere en vCenter (3 máquinas virtuales en caso de implementación de alta disponibilidad, 1 máquina virtual en caso de implementación que no sea de alta disponibilidad)*
 
 * En la interfaz de usuario del cliente vSphere, seleccione la VM.
-* Vaya a la pestaña de instantáneas y seleccione el botón *Tomar instantánea*.  Tome una instantánea inactiva de la máquina virtual.  Referirse a https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/take-snapshots-of-a-virtual-machine.html["Tomar una instantánea de una máquina virtual"^] Para más detalles.
+* Ve a la pestaña «Instantáneas» y selecciona el botón *Tomar instantánea*. Toma una instantánea en estado de reposo de la máquina virtual. Consulta https://techdocs.broadcom.com/["Documentación técnica de Broadcom"^] para obtener más detalles.
 
 
 Antes de realizar la actualización, elimine los pods completados del paquete de registro con el prefijo “generate-support-bundle-job”.  Si la generación del paquete de soporte está en progreso, espere a que se complete y luego elimine el pod.

@@ -20,6 +20,7 @@ La API REST incluye varias categorías de recursos, como vCenters y agregados.  
 
 
 
+[[how-to-access-the-rest-api]]
 == Cómo acceder a la API REST
 
 Puede acceder a las ONTAP tools for VMware vSphere 10 a través de la dirección IP de las herramientas ONTAP junto con el puerto.  La URL completa consta de varias partes, entre ellas:
@@ -47,12 +48,14 @@ Esta URL se puede utilizar para solicitar una lista de las instancias del servid
 
 
 
+[[http-details]]
 == Detalles HTTP
 
 Las ONTAP tools for VMware vSphere 10 utilizan HTTP y parámetros relacionados para actuar en las instancias y colecciones de recursos.  A continuación se presentan detalles de la implementación HTTP.
 
 
 
+[[http-methods]]
 === Métodos HTTP
 
 Los métodos o verbos HTTP admitidos por la API REST se presentan en la siguiente tabla.
@@ -78,6 +81,7 @@ Los métodos o verbos HTTP admitidos por la API REST se presentan en la siguient
 |===
 
 
+[[request-and-response-headers]]
 === Encabezados de solicitud y respuesta
 
 La siguiente tabla resume los encabezados HTTP más importantes utilizados con la API REST.
@@ -97,6 +101,7 @@ La siguiente tabla resume los encabezados HTTP más importantes utilizados con l
 |===
 
 
+[[http-status-codes]]
 === Códigos de estado HTTP
 
 A continuación se describen los códigos de estado HTTP utilizados por la API REST.
@@ -137,6 +142,7 @@ A continuación se describen los códigos de estado HTTP utilizados por la API R
 |===
 
 
+[[authentication]]
 == Autenticación
 
 La autenticación de un cliente a la API REST se realiza mediante un token de acceso.  Las características relevantes del token y del proceso de autenticación incluyen:
@@ -151,6 +157,7 @@ Referirse alink:../automation/first-call.html["Su primera llamada a la API REST"
 
 
 
+[[synchronous-and-asynchronous-requests]]
 == Solicitudes sincrónicas y asincrónicas
 
 La mayoría de las llamadas a la API REST se completan rápidamente y, por lo tanto, se ejecutan de forma sincrónica.  Es decir, devuelven un código de estado (como 200) después de que se ha completado una solicitud.  Las solicitudes que tardan más en completarse se ejecutan de forma asincrónica mediante un trabajo en segundo plano.

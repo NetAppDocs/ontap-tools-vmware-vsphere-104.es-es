@@ -48,10 +48,12 @@ Asegúrese de que se cumplan los siguientes requisitos antes de continuar con la
 |===
 
 
+[[deployment-worksheet]]
 == Hoja de trabajo de implementación
 
 
 
+[[for-single-node-deployment]]
 === Para implementación de un solo nodo
 
 Utilice la siguiente hoja de trabajo para recopilar la información necesaria para las ONTAP tools for VMware vSphere :
@@ -100,6 +102,7 @@ NOTE: Cree registros DNS para todas las direcciones IP mencionadas anteriormente
 
 
 
+[[for-high-availability-ha-deployment]]
 === Para implementación de alta disponibilidad (HA)
 
 Además de los requisitos de implementación de un solo nodo, necesitará la siguiente información para la implementación de HA:
@@ -132,12 +135,14 @@ Además de los requisitos de implementación de un solo nodo, necesitará la sig
 |===
 
 
+[[network-firewall-configuration]]
 == Configuración del firewall de red
 
 Abra los puertos necesarios para las direcciones IP en el firewall de su red.  Las herramientas ONTAP deben poder llegar a este LIF a través del puerto 443.  Referirse alink:../deploy/prerequisites.html["Requisitos del puerto"] Para obtener las últimas actualizaciones.
 
 
 
+[[ontap-storage-settings]]
 == Configuración de almacenamiento de ONTAP
 
 Para garantizar una integración perfecta del almacenamiento de ONTAP con las ONTAP tools for VMware vSphere, tenga en cuenta las siguientes configuraciones:

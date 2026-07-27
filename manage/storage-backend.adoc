@@ -15,6 +15,7 @@ Los backends de almacenamiento son sistemas que los hosts ESXi utilizan para el 
 
 
 
+[[discover-storage]]
 == Descubra el almacenamiento
 
 Puede ejecutar el descubrimiento de un backend de almacenamiento a pedido sin esperar a que un descubrimiento programado actualice los detalles del almacenamiento.
@@ -32,6 +33,7 @@ Puede seguir el progreso en el panel de tareas recientes.
 
 
 
+[[modify-storage-backends]]
 == Modificar los backends de almacenamiento
 
 Siga los pasos de esta sección para modificar un backend de almacenamiento.
@@ -54,6 +56,7 @@ Puede realizar la operación Modificar para clústeres ONTAP globales mediante e
 
 
 
+[[remove-storage-backends]]
 == Eliminar backends de almacenamiento
 
 Debe eliminar todos los almacenes de datos adjuntos al back-end de almacenamiento antes de eliminar el back-end de almacenamiento. Siga los pasos a continuación para eliminar un backend de almacenamiento.
@@ -75,6 +78,7 @@ Puede realizar la operación de eliminación de clústeres ONTAP globales median
 
 
 
+[[drill-down-view-of-storage-backend]]
 == Vista detallada del backend de almacenamiento
 
 La página del backend de almacenamiento enumera todos los backends de almacenamiento. Puede realizar operaciones de descubrimiento, modificación y eliminación de almacenamiento en los backends de almacenamiento que agregó y no en la SVM secundaria individual del clúster.

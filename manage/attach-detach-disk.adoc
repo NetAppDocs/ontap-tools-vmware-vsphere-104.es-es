@@ -12,6 +12,7 @@ summary: Conecte un disco de datos a una máquina virtual para ampliar la capaci
 
 
 
+[[attach-a-data-disk-to-a-virtual-machine]]
 == Adjuntar un disco de datos a una máquina virtual
 
 Conecte un disco de datos a una máquina virtual para ampliar la capacidad de almacenamiento.
@@ -29,6 +30,7 @@ El disco duro aparece en la lista de dispositivos de hardware virtual.
 
 
 
+[[detach-a-data-disk-from-the-virtual-machine]]
 == Desconectar un disco de datos de la máquina virtual
 
 Puede desconectar un disco de datos conectado a una máquina virtual cuando ya no sea necesario.  Cuando se separa el disco de la máquina virtual, no se elimina automáticamente; permanece en el sistema de almacenamiento ONTAP .

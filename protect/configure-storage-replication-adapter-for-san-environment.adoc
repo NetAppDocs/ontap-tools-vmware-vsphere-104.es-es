@@ -15,6 +15,7 @@ Debe configurar los sistemas de almacenamiento antes de ejecutar el Adaptador de
 
 
 
+[[configure-sra-for-san-environments]]
 == Configurar SRA para entornos SAN
 
 .Antes de empezar
@@ -44,6 +45,7 @@ Puede hacer esto verificando que los hosts ESXi tengan LUN locales conectados en
 
 
 
+[[configure-sra-for-nas-environments]]
 == Configurar SRA para entornos NAS
 
 .Antes de empezar

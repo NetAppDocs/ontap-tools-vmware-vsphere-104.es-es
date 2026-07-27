@@ -18,6 +18,7 @@ NOTE: Para migrar a HA cuando la copia de seguridad que no es de HA está habili
 
 
 
+[[create-backup-and-download-the-backup-file]]
 == Crear una copia de seguridad y descargar el archivo de copia de seguridad
 
 .Pasos
@@ -41,6 +42,7 @@ En la sección de archivos, puedes ver el directorio.  El nombre del directorio 
 
 
 
+[[recover]]
 == Recuperar
 
 Para recuperar la configuración, apague la máquina virtual existente e implemente una nueva máquina virtual utilizando el OVA que se utilizó en la implementación inicial.

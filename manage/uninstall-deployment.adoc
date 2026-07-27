@@ -17,7 +17,7 @@ Al desinstalar las ONTAP tools for VMware vSphere se eliminan todos los datos de
 . Elimine o mueva todas las máquinas virtuales de las ONTAP tools for VMware vSphere .
 +
 ** Para eliminar las máquinas virtuales, consulte https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-virtual-machine-administration-guide-8-0/managing-virtual-machinesvsphere-vm-admin/adding-and-removing-virtual-machinesvsphere-vm-admin.html#GUID-376174FE-F936-4BE4-B8C2-48EED42F110B-en["Eliminar y volver a registrar máquinas virtuales y plantillas de máquinas virtuales"]
-** Para moverlos a un almacén de datos no administrado, consulte https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/9-0/migrate-a-virtual-machine-with-storage-vmotion.html["Cómo migrar su máquina virtual con Storage vMotion"]
+** Para trasladarlos a un almacén de datos no gestionado, consulta https://techdocs.broadcom.com/["Documentación técnica de Broadcom"^].
 
 
 . link:../manage/delete-ds.html["Eliminar almacenes de datos"]Creado en ONTAP tools for VMware vSphere.
